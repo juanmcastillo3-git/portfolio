@@ -1,0 +1,124 @@
+/* Reset básico para ul */
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar base */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background-color: rgba(18, 18, 18, 0.5); /* fondo negro semi-transparente */
+  backdrop-filter: blur(10px); /* desenfoque del fondo */
+  color: #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+/* Links desktop */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links li a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: #e0e0e0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background-color: #e0e0e0;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  transition: width 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ffffff;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+/* Hamburger button - oculto desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Barras hamburger */
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #e0e0e0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Animación cuando está abierto */
+.bar.open:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.bar.open:nth-child(2) {
+  opacity: 0;
+}
+
+.bar.open:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Responsive - móvil */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 64px; /* altura navbar */
+    right: 0;
+    height: calc(100vh - 64px);
+    width: 200px;
+    background-color: #121212;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -2px 0 6px rgba(0,0,0,0.6);
+  }
+
+  .nav-links.mobile-open {
+    transform: translateX(0);
+  }
+}
