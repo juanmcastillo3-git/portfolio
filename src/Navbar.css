@@ -1,11 +1,9 @@
-/* Reset básico para ul */
 .nav-links {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* Navbar base */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -18,17 +16,15 @@
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-family: "Segoe UI", Roboto, sans-serif;
 }
 
-/* Logo */
 .logo {
   font-size: 1.4rem;
   font-weight: 600;
   color: #e0e0e0;
 }
 
-/* Links desktop */
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -64,7 +60,6 @@
   width: 100%;
 }
 
-/* Hamburger button - oculto desktop */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -75,7 +70,6 @@
   padding: 0;
 }
 
-/* Barras hamburger */
 .bar {
   width: 25px;
   height: 3px;
@@ -84,7 +78,6 @@
   border-radius: 2px;
 }
 
-/* Animación cuando está abierto */
 .bar.open:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -97,7 +90,6 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Responsive - móvil */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -115,7 +107,7 @@
     gap: 1.5rem;
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    box-shadow: -2px 0 6px rgba(0,0,0,0.6);
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.6);
   }
 
   .nav-links.mobile-open {
