@@ -1,11 +1,13 @@
-import Navbar from './Navbar'
+import Navbar from "./Navbar";
+import Intro from "./Intro";
 
 function App() {
- return (
+  return (
     <>
       <Navbar />
+      <Intro />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

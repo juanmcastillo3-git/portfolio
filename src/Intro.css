@@ -1,0 +1,106 @@
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: radial-gradient(circle at top left, #1a1a2e, #0f0f1a);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.intro-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.intro-text h2 {
+  font-size: 2rem;
+  line-height: 1.4;
+}
+
+.highlight-pink {
+  color: #f953c6;
+}
+
+.highlight-green {
+  color: #00f2a9;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.social-icons a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #00f2a9;
+}
+
+.intro-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.8rem 1.4rem;
+  border-radius: 30px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.btn-outline:hover {
+  background: #ffffff;
+  color: #121212;
+}
+
+.btn-filled {
+  background: linear-gradient(to right, #a32eff, #f953c6);
+  color: white;
+}
+
+.btn-filled:hover {
+  opacity: 0.9;
+}
+
+.intro-code {
+  background-color: #111844;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #ffc;
+}
+
+@media (max-width: 768px) {
+  .intro {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .intro-buttons {
+    justify-content: center;
+  }
+
+  .intro-code {
+    text-align: left;
+  }
+}
