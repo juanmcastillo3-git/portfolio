@@ -114,8 +114,8 @@
     transform: translateX(0);
   }
   .logo-img {
-    height: 10px;
-    max-width: 10px;
+    height: 40px;
+    max-width: 40px;
     object-fit: contain;
     display: block;
   }
