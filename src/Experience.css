@@ -1,0 +1,108 @@
+/* experience.css */
+
+.experience-container {
+  padding: 4rem;
+  background: linear-gradient(135deg, #0d0d2b, #1e1e3f);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.experience-left {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.experience-image-wrapper {
+  position: relative;
+  display: inline-block;
+  animation: float 3s ease-in-out infinite;
+  box-shadow: 0 0 20px #00ffc8, 0 0 40px #00ffc8, 0 0 60px #00ffc8;
+  border-radius: 20px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.experience-image-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 2px solid #00ffc8;
+  border-radius: 25px;
+  animation: glow 2s ease-in-out infinite;
+  z-index: 0;
+  box-shadow: 0 0 15px #00ffc8, 0 0 30px #00ffc8, 0 0 45px #00ffc8;
+}
+
+@keyframes glow {
+  0% { opacity: 0.6; transform: scale(1); box-shadow: 0 0 15px #00ffc8, 0 0 30px #00ffc8; }
+  50% { opacity: 1; transform: scale(1.05); box-shadow: 0 0 25px #00ffc8, 0 0 45px #00ffc8; }
+  100% { opacity: 0.6; transform: scale(1); box-shadow: 0 0 15px #00ffc8, 0 0 30px #00ffc8; }
+}
+
+.experience-image {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  border-radius: 20px;
+}
+
+.experience-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.experience-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  color: #d26bff; /* violeta brillante */
+}
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.experience-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.experience-date {
+  color: #00ffc8;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.experience-role {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.experience-company {
+  font-size: 1rem;
+  opacity: 0.8;
+}
