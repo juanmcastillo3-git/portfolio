@@ -1,0 +1,75 @@
+.projects-section {
+  padding: 50px;
+  background-color: #0b1221;
+  color: white;
+  font-family: 'Fira Code', monospace;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #9b5de5, #6a4c93);
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+}
+
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-card {
+  background-color: #0d1b2a;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.project-header {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background-color: #1b263b;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.project-body {
+  padding: 15px;
+}
+
+.project-title {
+  color: #3fd2ff;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.project-code {
+  background: transparent;
+  padding: 10px;
+  overflow-x: auto;
+  color: #e6e6e6;
+  font-size: 0.9rem;
+}
+
+.project-code code {
+  color: #ffbd2e;
+  white-space: pre-wrap;
+}
+
+.project-code code span {
+  color: #3fd2ff;
+}

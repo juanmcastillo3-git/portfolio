@@ -1,0 +1,74 @@
+.educations-section {
+  background-color: #0a0a1f; /* Igual que Experience */
+  color: white;
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.educations-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #c084fc; /* Púrpura igual que Experience */
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+  animation: glow 2s infinite ease-in-out; /* Igual que Experience */
+}
+
+.educations-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.educations-image {
+  position: relative;
+  width: 320px;
+  display: flex;
+  justify-content: center;
+}
+
+.educations-light {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 140px;
+  background: radial-gradient(circle at center, #ff2d75, transparent 70%);
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.educations-image img {
+  width: 100%;
+  max-width: 320px;
+  position: relative;
+  z-index: 1;
+}
+
+.education-card {
+  background: rgba(15, 20, 40, 0.7);
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  max-width: 420px;
+  box-shadow: 0 0 25px rgba(167, 139, 250, 0.2);
+}
+
+.education-date {
+  color: #5eead4; /* Verde agua */
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.education-degree {
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+}
+
+.education-university {
+  font-size: 1rem;
+  color: #cbd5e1;
+}

@@ -1,7 +1,5 @@
-.nav-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+html {
+  scroll-behavior: smooth;
 }
 
 .navbar {
@@ -9,8 +7,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 2rem;
-  background-color: rgba(18, 18, 18, 0.5); /* fondo negro semi-transparente */
-  backdrop-filter: blur(10px); /* desenfoque del fondo */
+  background-color: rgba(18, 18, 18, 0.5);
+  backdrop-filter: blur(10px);
   color: #e0e0e0;
   position: sticky;
   top: 0;
@@ -23,11 +21,21 @@
   font-size: 1.4rem;
   font-weight: 600;
   color: #e0e0e0;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 40px;
+  max-width: 40px;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-links {
   display: flex;
   gap: 2rem;
+  list-style: none;
 }
 
 .nav-links li a {
@@ -50,6 +58,10 @@
   bottom: -3px;
   left: 0;
   transition: width 0.3s;
+}
+
+.nav-links li a.active {
+  color: #ffffff;
 }
 
 .nav-links li a:hover {
@@ -90,6 +102,27 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 0.6rem 1rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: #555;
+}
+
+/* ==== Mobile styles ==== */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -97,7 +130,7 @@
 
   .nav-links {
     position: fixed;
-    top: 64px; /* altura navbar */
+    top: 64px;
     right: 0;
     height: calc(100vh - 64px);
     width: 200px;
@@ -108,23 +141,20 @@
     transform: translateX(100%);
     transition: transform 0.3s ease;
     box-shadow: -2px 0 6px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav-links.mobile-open {
     transform: translateX(0);
   }
-  .logo-img {
-    height: 40px;
-    max-width: 40px;
-    object-fit: contain;
-    display: block;
+
+  .nav-links li {
+    list-style: none;
   }
 
   .logo {
     font-size: 1rem;
     font-weight: 200;
-    color: #e0e0e0;
-    display: flex;
-    align-items: center;
   }
 }

@@ -1,3 +1,7 @@
+html {
+  scroll-padding-top: 70px;
+}
+
 .about-section {
   display: grid;
   grid-template-columns: 1fr 1fr;

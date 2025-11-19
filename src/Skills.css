@@ -1,0 +1,120 @@
+.skills-section {
+  padding: 5rem 5rem;
+  background-color: #0f0f1b;
+  text-align: center;
+}
+
+.skills-title {
+  font-size: 2rem;
+  color: #c084fc;
+  margin-bottom: 5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 3rem;
+  animation: scroll 20s linear infinite;
+}
+
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+.skill-card {
+  flex: 0 0 auto;
+  background-color: #181826;
+  padding: 1rem;
+  width: 120px;
+  text-align: center;
+  box-shadow: 0 5px #5b21b6;
+  transition: transform 0.3s;
+}
+
+.skill-card:hover {
+  transform: scale(1.05);
+}
+
+.skill-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #9333ea;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px #9333ea;
+  z-index: 2000;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: #6b21a8;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skill-card {
+    width: 100px;
+    padding: 0.8rem;
+  }
+
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .skills-title {
+    font-size: 1.5rem;
+  }
+
+  .carousel-track {
+    animation-duration: 10s !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-card {
+    width: 80px;
+    padding: 0.5rem;
+  }
+
+  .skill-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .skills-title {
+    font-size: 1.2rem;
+  }
+
+  .carousel-track {
+    animation-duration: 7s !important;
+  }
+}
