@@ -84,11 +84,7 @@ export default function BookOpening() {
             transition={{ delay: 1.3, duration: 0.35 }}
           >
             <span className="bo-page-kicker">ご開巻 ✶ HOJA 1</span>
-            <span className="bo-page-title">
-              Un relato
-              <br />
-              por hojas
-            </span>
+            <span className="bo-page-title">Bienvenido</span>
             <span className="bo-page-star" aria-hidden="true">
               ✶ ✶ ✶
             </span>
