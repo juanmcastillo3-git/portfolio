@@ -1,69 +1,164 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* ── Paleta "Pampa Estelar": folclore argentino × espacio × manga ── */
+  --paper: #ecd9ae; /* papel sepia, como afiche viejo */
+  --paper-2: #e2c996; /* papel un tono más oscuro */
+  --ink: #2b1c10; /* tinta sepia oscura */
+  --ink-soft: #5d4530; /* tinta diluida */
+  --folk-red: #b6422a; /* rojo fileteado */
+  --folk-red-deep: #8a2f1c; /* rojo profundo (sombra) */
+  --celeste: #8cc4d9; /* celeste pampeano/estelar (sobre fondo oscuro) */
+  --celeste-ink: #35708c; /* celeste legible sobre papel */
+  --gold: #c69a37; /* oro de marco fileteado */
+  --space: #10121f; /* cielo nocturno de la pampa estelar */
+  --space-2: #1a1d31; /* cielo un tono más claro */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --font-display: "Rye", "Bevan", serif; /* titulares, aire fileteado */
+  --font-slab: "Bevan", serif; /* subtítulos slab vintage */
+  --font-type: "Special Elite", "Courier New", cursive; /* máquina de escribir */
+  --font-jp: "Noto Serif JP", serif; /* acentos japoneses */
+  --font-body: "Crimson Pro", Georgia, serif;
 
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* ── El cielo nocturno: estrellas fijas + nebulosas de tinta ── */
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top right, #2e1a4f, #0e0e16);
-  color: #e0e0e0;
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--space);
+  background-image:
+    /* estrellitas (patrón repetido) */ radial-gradient(
+      1.5px 1.5px at 25px 35px,
+      rgba(236, 217, 174, 0.8) 50%,
+      transparent 51%
+    ),
+    radial-gradient(
+      1px 1px at 120px 90px,
+      rgba(236, 217, 174, 0.55) 50%,
+      transparent 51%
+    ),
+    radial-gradient(
+      1.5px 1.5px at 210px 160px,
+      rgba(140, 196, 217, 0.6) 50%,
+      transparent 51%
+    ),
+    radial-gradient(
+      1px 1px at 60px 200px,
+      rgba(236, 217, 174, 0.4) 50%,
+      transparent 51%
+    ),
+    radial-gradient(
+      2px 2px at 280px 40px,
+      rgba(198, 154, 55, 0.5) 50%,
+      transparent 51%
+    ),
+    /* calidez de lámpara criolla detrás del libro */
+      radial-gradient(circle at 50% 42%, rgba(198, 154, 55, 0.1), transparent 52%),
+    /* nebulosas tenues: violeta pampa, rojo tierra y celeste espacial */
+      radial-gradient(circle at 12% 18%, rgba(74, 48, 88, 0.5), transparent 42%),
+    radial-gradient(circle at 88% 72%, rgba(122, 52, 34, 0.22), transparent 45%),
+    radial-gradient(circle at 70% 10%, rgba(53, 112, 140, 0.18), transparent 40%);
+  background-size: 340px 340px, 340px 340px, 340px 340px, 340px 340px,
+    340px 340px, auto, auto, auto, auto;
+  background-attachment: fixed;
+  color: var(--paper);
+  font-family: var(--font-body);
+  line-height: 1.5;
 }
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+
+/* Viñeta de fotografía antigua en los bordes de la pantalla */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(10, 6, 2, 0.5) 100%
+  );
+}
+
+/* Grano de película + scanlines de proyector (aire anime retro) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 501;
+  pointer-events: none;
+  opacity: 0.16;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(20, 8, 2, 0.6) 0px,
+      rgba(20, 8, 2, 0.6) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 235, 200, 0.03) 0 2px,
+      transparent 2px 4px
+    );
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+a {
+  font-weight: 500;
+  color: var(--folk-red);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--celeste-ink);
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: var(--font-type);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+::selection {
+  background: var(--folk-red);
+  color: var(--paper);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--space);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--folk-red-deep);
+  border: 2px solid var(--space);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--folk-red);
+}
+
+/* ── Kicker decorativo japonés que acompaña a cada título de sección ── */
+.jp-kicker {
+  display: block;
+  font-family: var(--font-jp);
+  color: var(--folk-red);
+  letter-spacing: 0.4em;
+  font-size: 0.65em;
+  opacity: 0.9;
 }
 
 html {

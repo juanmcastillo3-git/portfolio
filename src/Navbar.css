@@ -6,30 +6,56 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2rem;
-  background-color: rgba(18, 18, 18, 0.5);
-  backdrop-filter: blur(10px);
-  color: #e0e0e0;
-  position: sticky;
+  padding: 0.8rem 2rem;
+  background-color: rgba(16, 18, 31, 0.94);
+  backdrop-filter: blur(8px);
+  color: var(--paper);
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  font-family: "Segoe UI", Roboto, sans-serif;
+  border-bottom: 3px double var(--gold);
+  font-family: var(--font-type);
+  box-shadow: 0 6px 20px rgba(10, 6, 2, 0.45);
+}
+
+/* Franja de poncho bajo la barra: rojo, oro, celeste y tinta */
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--folk-red) 0 18px,
+    var(--gold) 18px 36px,
+    var(--celeste-ink) 36px 54px,
+    var(--ink) 54px 72px
+  );
+  opacity: 0.9;
 }
 
 .logo {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #e0e0e0;
   display: flex;
   align-items: center;
 }
 
+/* Logo enmarcado como medallón fileteado */
 .logo-img {
-  height: 40px;
-  max-width: 40px;
+  height: 42px;
+  width: 42px;
+  max-width: 42px;
   object-fit: contain;
   display: block;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 3px var(--space-2),
+    0 0 14px rgba(198, 154, 55, 0.35);
 }
 
 .nav-links {
@@ -39,23 +65,24 @@ html {
 }
 
 .nav-links li a {
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
   text-decoration: none;
-  color: #e0e0e0;
+  color: var(--paper);
   position: relative;
   transition: color 0.3s ease;
 }
 
+/* Subrayado fileteado en rojo */
 .nav-links li a::after {
   content: "";
   display: block;
   width: 0;
-  height: 1px;
-  background-color: #e0e0e0;
+  height: 2px;
+  background-color: var(--folk-red);
   position: absolute;
-  bottom: -3px;
+  bottom: -4px;
   left: 0;
   transition: width 0.3s;
 }
@@ -65,7 +92,7 @@ html {
 }
 
 .nav-links li a:hover {
-  color: #ffffff;
+  color: var(--celeste);
 }
 
 .nav-links li a:hover::after {
@@ -85,7 +112,7 @@ html {
 .bar {
   width: 25px;
   height: 3px;
-  background-color: #e0e0e0;
+  background-color: var(--paper);
   transition: all 0.3s ease;
   border-radius: 2px;
 }
@@ -102,25 +129,8 @@ html {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-.scroll-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 0.6rem 1rem;
-  background-color: #333;
-  color: #fff;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1001;
-  transition: background-color 0.3s ease;
-}
-
-.scroll-to-top:hover {
-  background-color: #555;
-}
+/* Botón "volver arriba": ya no hace falta en modo libro, se quita
+   a favor de las esquinas de pasada de App.css. */
 
 /* ==== Mobile styles ==== */
 @media (max-width: 768px) {
@@ -130,17 +140,18 @@ html {
 
   .nav-links {
     position: fixed;
-    top: 64px;
+    top: 72px;
     right: 0;
-    height: calc(100vh - 64px);
-    width: 200px;
-    background-color: #121212;
+    height: calc(100vh - 72px);
+    width: 220px;
+    background-color: var(--space-2);
+    border-left: 3px double var(--gold);
     flex-direction: column;
     padding: 2rem 1rem;
     gap: 1.5rem;
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.6);
+    box-shadow: -2px 0 6px rgba(10, 6, 2, 0.6);
     overflow-y: auto;
     overscroll-behavior: contain;
   }

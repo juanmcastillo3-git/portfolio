@@ -1,0 +1,266 @@
+/* ── Cinemática de apertura: overlay de noche con el libro girando ── */
+.book-opening {
+  position: fixed;
+  inset: 0;
+  z-index: 2600;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #070a18;
+}
+
+/* cielo estrellado del plan nocturno */
+.bo-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1.5px 1.5px at 24px 34px, rgba(236, 217, 174, 0.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 130px 110px, rgba(236, 217, 174, 0.55) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 220px 180px, rgba(140, 196, 217, 0.6) 50%, transparent 51%),
+    linear-gradient(180deg, #060915 0%, #12172b 52%, #241109 86%, #160d07 100%);
+  background-size: 340px 340px, 340px 340px, 340px 340px, auto;
+}
+
+/* raudo resplandor de fogón bien abajo, como hornada bajo la escena */
+.bo-fireglow {
+  position: absolute;
+  bottom: -14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130%;
+  height: 52%;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(255, 130, 40, 0.3),
+    transparent 62%
+  );
+  filter: blur(4px);
+}
+
+/* ✦✶ brasas subiendo por el aire ✦✶ */
+.bo-spark {
+  position: absolute;
+  bottom: -6vh;
+  color: #ffb050;
+  opacity: 0;
+  text-shadow: 0 0 12px rgba(255, 170, 80, 0.9);
+  animation: bo-rise 1.9s ease-out infinite;
+  z-index: 3;
+}
+
+.bo-spark--gold {
+  color: #e9dcae;
+  text-shadow: 0 0 14px rgba(233, 220, 174, 0.9);
+}
+
+@keyframes bo-rise {
+  0% {
+    transform: translateY(6vh) rotate(0deg);
+    opacity: 0;
+  }
+  16% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(-62vh) rotate(220deg);
+    opacity: 0;
+  }
+}
+
+/* escenario del tomo */
+.bo-stage {
+  position: relative;
+  z-index: 4;
+  width: min(560px, 92vw);
+  height: min(430px, 74vh);
+  display: grid;
+  place-items: center;
+}
+
+/* el libro abierto: dos paños de 230px (el cerrado aparece centrado
+   porque tiene un offset que se anula mientras la tapa vira) */
+.bo-book {
+  position: relative;
+  width: min(460px, 88vw);
+  height: min(310px, 46vh);
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+}
+
+/* ── tapa frontal (panel derecho del libro visto de frente) ── */
+.bo-front {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  z-index: 3;
+  will-change: transform;
+}
+
+.bo-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255, 200, 130, 0.1), transparent 48%),
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.06) 0 2px, transparent 2px 5px),
+    linear-gradient(160deg, #5d2320 0%, #421815 48%, #2b100d 100%);
+  border: 3px double var(--gold);
+  border-radius: 4px 8px 8px 4px;
+  box-shadow: inset 0 0 0 5px rgba(28, 10, 8, 0.5);
+  backface-visibility: hidden;
+}
+
+.bo-face-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 5.2vw, 2rem);
+  letter-spacing: 0.12em;
+  color: #ddb75e;
+  text-shadow:
+    0 1px 0 rgba(255, 235, 170, 0.5),
+    0 2px 0 rgba(110, 72, 18, 0.6),
+    0 8px 18px rgba(0, 0, 0, 0.6);
+}
+
+.bo-face-kana {
+  font-family: var(--font-jp);
+  font-size: 0.68rem;
+  letter-spacing: 0.45em;
+  text-indent: 0.45em;
+  color: rgba(236, 217, 174, 0.55);
+}
+
+.bo-face-ornament {
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+/* contracara de papel: aparece cuando la tapa ya está en la izquierda */
+.bo-faceback {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #e2cf9e 0%, #d5c08c 82%);
+  border-radius: 8px 4px 4px 8px;
+  box-shadow: inset -12px 0 22px rgba(43, 28, 16, 0.35);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+/* bloque de páginas del canto derecho */
+.bo-block {
+  position: absolute;
+  left: 50%;
+  top: 1.5%;
+  height: 97%;
+  width: 50%;
+  border-radius: 4px 10px 10px 4px;
+  background: repeating-linear-gradient(
+    180deg,
+    #e8dcb8 0 3px,
+    #c9b98c 3px 5px
+  );
+  box-shadow: inset -3px 0 6px rgba(43, 28, 16, 0.4);
+  transform: translateZ(-6px);
+}
+
+/* ── hoja 1: papel sepia con el título del relato ── */
+.bo-page-right {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  width: calc(50% - 8px);
+  height: 96%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.6rem;
+  box-sizing: border-box;
+  background: linear-gradient(105deg, #f0e2ba 0%, #e2ce98 100%);
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: inset -14px 0 24px rgba(43, 28, 16, 0.3);
+  z-index: 1;
+}
+
+.bo-page-kicker {
+  font-family: var(--font-jp);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--folk-red);
+}
+
+.bo-page-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 4.4vw, 1.7rem);
+  text-align: center;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.bo-page-star {
+  color: var(--gold);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  font-size: 0.8rem;
+}
+
+/* hojas wisp que revolotean sobre la escena */
+.bo-flutter {
+  position: absolute;
+  left: 52%;
+  top: 8%;
+  width: 48%;
+  height: 84%;
+  border-radius: 4px 8px 8px 4px;
+  background: linear-gradient(100deg, #efe1b8 0%, #dcc795 100%);
+  box-shadow: 2px 2px 8px rgba(5, 3, 1, 0.35);
+  transform-origin: left center;
+  z-index: 2;
+  opacity: 0.95;
+}
+
+/* ✶ chispazo dorado: deja constancia de la apertura ✶ */
+.bo-burst {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 240px;
+  height: 240px;
+  margin: -120px 0 0 -120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 244, 205, 0.95) 0%,
+    rgba(227, 192, 106, 0.5) 38%,
+    transparent 68%
+  );
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .bo-stage {
+    height: auto;
+  }
+
+  .bo-book {
+    height: min(230px, 40vh);
+  }
+
+  .bo-burst {
+    width: 170px;
+    height: 170px;
+    margin: -85px 0 0 -85px;
+  }
+}

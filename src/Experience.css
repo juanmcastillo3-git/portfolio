@@ -1,17 +1,30 @@
+/* ── Experience: telegramas de oficina, papel sepia ── */
 .experience-container {
-  padding: 3rem 2rem;
-  background-color: #0a0a1f;
-  color: white;
+  padding: 3.5rem 2rem 4rem;
+  background-color: var(--paper);
+  color: var(--ink);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(43, 28, 16, 0.035) 0 1px,
+    transparent 1px 4px
+  );
+  border-top: 3px double var(--gold);
+  border-bottom: 3px double var(--gold);
 }
 
 .experience-title {
-  color: #c084fc;
-  border-radius: 10px;
+  color: var(--folk-red);
+  font-family: var(--font-display);
   font-size: 2rem;
   margin: 0 auto 2rem;
   display: table;
   text-align: center;
-  animation: glow 2s infinite ease-in-out;
+}
+
+.experience-title::before,
+.experience-title::after {
+  content: " ✶ ";
+  color: var(--gold);
 }
 
 .experience-grid {
@@ -30,9 +43,15 @@
 }
 
 .experience-image {
-  width: 500px; 
+  width: 500px;
   max-width: 90vw;
-  filter: drop-shadow(0 0 10px #9333ea);
+  /* la ilustración ya viene en la paleta nocturna del sitio: sin filtros */
+  filter: drop-shadow(0 12px 26px rgba(10, 6, 2, 0.55));
+  border-radius: 8px;
+  border: 2px solid rgba(77, 183, 214, 0.35);
+  box-shadow:
+    0 0 0 4px rgba(16, 22, 43, 0.9),
+    0 0 34px rgba(77, 183, 214, 0.2);
 }
 
 .experience-right {
@@ -42,18 +61,48 @@
   gap: 1.5rem;
 }
 
+/* Tarjeta tipo formulario impreso (ahora clickeable a la web de la empresa) */
 .experience-card {
-  background: radial-gradient(circle at top left, #1f1147, #09021c);
-  border: 1px solid #4c1d95;
-  border-radius: 12px;
+  background: var(--paper-2);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
   padding: 1.5rem;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 10px #4c1d95;
+  box-shadow: 5px 5px 0 rgba(43, 28, 16, 0.25);
+  cursor: pointer;
+  /* la card es un <a>: mantiene el look de tinta impresa sin subrayado */
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+/* sello ↗ para señalar que lleva afuera */
+.experience-link-mark {
+  display: inline-block;
+  font-size: 0.85em;
+  color: var(--celeste-ink);
+  opacity: 0;
+  transform: translateY(2px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.experience-card:hover .experience-link-mark {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-card:hover {
+  border-color: var(--folk-red);
+  transform: rotate(-0.5deg);
 }
 
 .experience-date {
-  color: #6ee7b7;
+  color: var(--celeste-ink);
+  font-family: var(--font-type);
   font-size: 0.85rem;
+  letter-spacing: 0.1em;
   margin-bottom: 0.5rem;
 }
 
@@ -65,20 +114,22 @@
 
 .experience-icon {
   font-size: 1.8rem;
-  color: #c084fc;
+  color: var(--folk-red);
 }
 
 .experience-role {
   margin: 0;
-  font-size: 1.2rem;
-  color: #f3e8ff;
-  font-weight: bold;
+  font-family: var(--font-slab);
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-weight: 400;
 }
 
 .experience-company {
   margin: 0;
   font-size: 1rem;
-  color: #e0defc;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
 }
 
 /* --------------------- */

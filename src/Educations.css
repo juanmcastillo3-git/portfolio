@@ -1,6 +1,7 @@
+/* ── Educations: diploma sellado bajo el cielo estelar ── */
 .educations-section {
-  background-color: #0a0a1f; /* Igual que Experience */
-  color: white;
+  background-color: var(--space);
+  color: var(--paper);
   padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
@@ -8,12 +9,18 @@
 
 .educations-title {
   text-align: center;
+  font-family: var(--font-display);
   font-size: 2rem;
-  color: #c084fc; /* Púrpura igual que Experience */
+  color: var(--celeste);
   margin-bottom: 4rem;
   position: relative;
   z-index: 1;
-  animation: glow 2s infinite ease-in-out; /* Igual que Experience */
+}
+
+.educations-title::before,
+.educations-title::after {
+  content: " ✶ ";
+  color: var(--folk-red);
 }
 
 .educations-grid {
@@ -32,12 +39,17 @@
   justify-content: center;
 }
 
+/* Resplandor estelar en lugar de neón púrpura */
 .educations-light {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 140px;
-  background: radial-gradient(circle at center, #ff2d75, transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    rgba(140, 196, 217, 0.55),
+    transparent 70%
+  );
   filter: blur(50px);
   z-index: 0;
 }
@@ -47,28 +59,53 @@
   max-width: 320px;
   position: relative;
   z-index: 1;
+  filter: sepia(45%) contrast(1.05);
 }
 
+/* Diploma: doble marco dorado */
 .education-card {
-  background: rgba(15, 20, 40, 0.7);
-  border-radius: 10px;
+  position: relative;
+  background: rgba(26, 29, 49, 0.85);
+  border: 3px double var(--gold);
+  border-radius: 3px;
   padding: 1.5rem 2rem;
   max-width: 420px;
-  box-shadow: 0 0 25px rgba(167, 139, 250, 0.2);
+  box-shadow: 0 0 25px rgba(10, 6, 2, 0.4);
+}
+
+.education-card::after {
+  content: "証明書 ✶ CERTIFIED ✶";
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  font-family: var(--font-jp);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--folk-red);
+  border: 2px solid var(--folk-red);
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  transform: rotate(7deg);
+  opacity: 0.75;
+  pointer-events: none;
 }
 
 .education-date {
-  color: #5eead4; /* Verde agua */
-  font-weight: bold;
+  color: var(--celeste);
+  font-family: var(--font-type);
+  letter-spacing: 0.1em;
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
 .education-degree {
   font-size: 1.4rem;
   margin: 0.5rem 0;
+  color: var(--paper);
 }
 
 .education-university {
   font-size: 1rem;
-  color: #cbd5e1;
+  color: #cdb787;
+  font-family: var(--font-body);
 }

@@ -4,7 +4,9 @@ import "./educations.css";
 const Educations = () => {
   return (
     <section className="educations-section">
-      <h2 className="educations-title">Educations</h2>
+      <h2 className="educations-title">
+        Educations<span className="jp-kicker" aria-hidden="true">教育</span>
+      </h2>
 
       <div className="educations-grid">
         <div className="educations-image">

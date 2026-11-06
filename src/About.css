@@ -2,27 +2,53 @@ html {
   scroll-padding-top: 70px;
 }
 
+/* ── About: escena nocturna de manga, con estrellas del fondo ── */
 .about-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  padding: 4rem 2rem;
-  background-color: #0d0d1a;
-  color: #e0e0e0;
-  font-family: "Segoe UI", sans-serif;
+  padding: 4rem 2.5rem;
+  background-color: var(--space-2);
+  /* líneas de velocidad de cómic, muy sutiles */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(236, 217, 174, 0.045) 0 2px,
+    transparent 2px 28px
+  );
+  color: var(--paper);
 }
 
 .about-title {
-  color: #00f2a9;
-  font-weight: 700;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+  color: var(--celeste);
+  font-family: "IM Fell English SC", "IM Fell English", serif;
+  font-weight: 400;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+
+.about-title::before {
+  content: "✶ ";
+  color: var(--folk-red);
 }
 
 .about-text p {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-family: "IM Fell English", Georgia, serif;
+  font-size: 1.06rem;
+  line-height: 1.75;
+  color: #e6d3a8;
+  text-align: justify;
+}
+
+/* Capitel de novela antigua en la primera letra */
+.about-text p::first-letter {
+  font-family: "IM Fell English SC", "IM Fell English", serif;
+  font-size: 3em;
+  float: left;
+  line-height: 0.9;
+  padding-right: 0.12em;
+  color: var(--folk-red);
 }
 
 .about-image-container {
@@ -31,41 +57,61 @@ html {
   justify-content: center;
 }
 
+/* Retrato vintage grande: marco de papel y sombra plana */
 .about-image {
-  width: 280px;
-  border-radius: 12px;
+  width: clamp(340px, 30vw, 430px);
+  max-width: 100%;
+  border-radius: 4px;
   object-fit: cover;
-  transition: filter 0.5s ease, transform 0.3s ease;
-  filter: grayscale(100%);
+  border: 6px solid var(--paper);
+  outline: 1px solid var(--gold);
+  box-shadow: 10px 10px 0 rgba(10, 6, 2, 0.45);
+  transition:
+    filter 0.5s ease,
+    transform 0.3s ease;
+  filter: sepia(32%) contrast(1.05) saturate(0.92);
+  transform: rotate(-1.5deg);
 }
 
 .about-image:hover {
-  filter: grayscale(0%);
-  transform: scale(1.02); /* opcional: efecto leve de zoom */
+  filter: sepia(8%) contrast(1.02) saturate(1);
+  transform: rotate(0deg) scale(1.02);
 }
 
+/* Etiqueta como banda de estampilla */
 .about-label {
   position: absolute;
   right: -40px;
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
-  background-color: #1a1a4d;
-  color: #fff;
+  background-color: var(--folk-red);
+  color: var(--paper);
   padding: 0.4rem 1rem;
-  border-radius: 6px;
+  border: 1px dashed var(--paper);
+  font-family: var(--font-type);
   font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
 }
 
 @media (max-width: 768px) {
   .about-section {
     grid-template-columns: 1fr;
     text-align: center;
+    padding: 2.6rem 1.4rem;
+    gap: 2rem;
+  }
+
+  .about-text p {
+    text-align: left;
   }
 
   .about-image-container {
     justify-content: center;
+  }
+
+  .about-image {
+    width: min(78vw, 340px);
   }
 
   .about-label {

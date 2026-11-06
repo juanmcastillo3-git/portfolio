@@ -1,120 +1,311 @@
+/* ── Skills: mazo de cartas de personaje, estilo anime × estampilla vintage ── */
 .skills-section {
-  padding: 5rem 5rem;
-  background-color: #0f0f1b;
+  padding: 2.6rem 1.6rem 3rem;
+  background-color: var(--space-2);
+  background-image:
+    radial-gradient(circle at 82% 16%, rgba(122, 52, 34, 0.25), transparent 38%),
+    radial-gradient(circle at 10% 84%, rgba(53, 112, 140, 0.2), transparent 38%),
+    radial-gradient(1.5px 1.5px at 30px 40px, rgba(236, 217, 174, 0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 140px 120px, rgba(236, 217, 174, 0.35) 50%, transparent 51%);
+  background-size: auto, auto, 180px 180px, 180px 180px;
   text-align: center;
 }
 
 .skills-title {
+  font-family: var(--font-display);
   font-size: 2rem;
-  color: #c084fc;
-  margin-bottom: 5rem;
+  color: var(--celeste);
+  margin: 0 0 0.3rem;
   position: relative;
   display: inline-block;
 }
 
-.carousel-container {
-  overflow: hidden;
+.skills-title::before,
+.skills-title::after {
+  content: " ✶ ";
+  color: var(--folk-red);
+}
+
+/* Kōban de imprenta bajo el título */
+.skills-sub {
+  font-family: var(--font-type);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: rgba(236, 217, 174, 0.6);
+  margin: 0 0 1.6rem;
+}
+
+/* ── La vitrina del mazo ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.1rem;
+}
+
+/* ── Carta base: papel sepia con marco de rareza ── */
+.mythic-card {
   position: relative;
-  width: 100%;
-}
-
-.carousel-track {
-  display: flex;
-  gap: 3rem;
-  animation: scroll 20s linear infinite;
-}
-
-.carousel-container:hover .carousel-track {
-  animation-play-state: paused;
-}
-
-.skill-card {
-  flex: 0 0 auto;
-  background-color: #181826;
-  padding: 1rem;
-  width: 120px;
-  text-align: center;
-  box-shadow: 0 5px #5b21b6;
-  transition: transform 0.3s;
-}
-
-.skill-card:hover {
-  transform: scale(1.05);
-}
-
-.skill-icon {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
-}
-
-.scroll-to-top {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #9333ea;
-  color: white;
-  border: none;
-  padding: 0.7rem 1rem;
-  border-radius: 50%;
-  font-size: 1.5rem;
+  padding: 1.7rem 0.55rem 0.55rem;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255, 248, 230, 0.55), transparent 45%),
+    linear-gradient(165deg, var(--paper) 0%, var(--paper-2) 100%);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  box-shadow:
+    0 8px 0 rgba(43, 28, 16, 0.28),
+    0 16px 28px rgba(10, 6, 2, 0.45);
   cursor: pointer;
-  box-shadow: 0 0 10px #9333ea;
-  z-index: 2000;
-  transition: background-color 0.3s ease;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s ease;
 }
 
-.scroll-to-top:hover {
-  background-color: #6b21a8;
+.mythic-card:hover {
+  box-shadow:
+    0 10px 0 rgba(43, 28, 16, 0.3),
+    0 22px 38px rgba(10, 6, 2, 0.55);
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0%);
-  }
+/* Perforación interior, herencia de las estampillas de correo */
+.mythic-card::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(43, 28, 16, 0.5);
+  border-radius: 7px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Rarezas: oro (SSR), celeste (SR), cobre (R) */
+.mythic-card--ssr {
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 3px rgba(198, 154, 55, 0.45),
+    0 8px 0 var(--folk-red-deep),
+    0 18px 30px rgba(198, 154, 55, 0.3);
+}
+.mythic-card--ssr:hover {
+  box-shadow:
+    0 0 0 3px rgba(198, 154, 55, 0.6),
+    0 10px 0 var(--folk-red-deep),
+    0 24px 44px rgba(198, 154, 55, 0.4);
+}
+
+.mythic-card--sr {
+  border-color: var(--celeste-ink);
+  box-shadow:
+    0 0 0 2px rgba(53, 112, 140, 0.35),
+    0 8px 0 var(--ink-soft),
+    0 16px 28px rgba(10, 6, 2, 0.45);
+}
+
+.mythic-card--r {
+  border-color: var(--ink-soft);
+}
+
+/* ── Sello de rareza, esquina superior izquierda ── */
+.mythic-rarity {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  z-index: 2;
+  font-family: var(--font-type);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  color: var(--paper);
+  padding: 2px 7px 1px;
+  background: var(--ink-soft);
+  border-radius: 2px;
+  transform: rotate(-5deg);
+  box-shadow: 0 2px 4px rgba(10, 6, 2, 0.4);
+}
+
+.mythic-card--ssr .mythic-rarity {
+  background: var(--folk-red);
+}
+
+.mythic-card--sr .mythic-rarity {
+  background: var(--celeste-ink);
+}
+
+/* ── Kanji del elemento, esquina superior derecha ── */
+.mythic-element {
+  position: absolute;
+  top: 4px;
+  right: 9px;
+  z-index: 2;
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--folk-red);
+  opacity: 0.9;
+  text-shadow: 0 1px 0 rgba(255, 248, 230, 0.6);
+}
+
+/* Estrellas de rareza, como grabado en oro */
+.mythic-stars {
+  display: block;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  color: var(--ink-soft);
+  margin-bottom: 0.45rem;
+}
+
+.mythic-card--ssr .mythic-stars {
+  color: #a8802a;
+}
+
+.mythic-card--sr .mythic-stars {
+  color: var(--celeste-ink);
+}
+
+/* ── Medallón del héroe: el ícono flota suavemente ── */
+.mythic-medal {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 28%, #fff8e6 0%, #e2c996 72%);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 2px 6px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 8px rgba(43, 28, 16, 0.25),
+    0 4px 10px rgba(10, 6, 2, 0.35);
+  animation: medal-float 3.6s ease-in-out infinite;
+  transform: translateZ(30px);
+}
+
+.mythic-medal img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+@keyframes medal-float {
+  0%,
   100% {
-    transform: translateX(-50%);
+    transform: translateZ(30px) translateY(0);
+  }
+  50% {
+    transform: translateZ(30px) translateY(-5px);
   }
 }
 
-/* Responsive */
+/* ── Nombre y alias de la carta ── */
+.mythic-name {
+  font-family: var(--font-slab);
+  font-size: 0.92rem;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin: 0 0 0.15rem;
+}
+
+.mythic-alias {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.66rem;
+  line-height: 1.25;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem;
+  min-height: 1.6em;
+}
+
+/* PWR: nivel de combate, siempre en tinta roja de imprenta */
+.mythic-pwr {
+  font-family: var(--font-type);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  color: var(--folk-red);
+  border-top: 1px dashed rgba(43, 28, 16, 0.45);
+  padding: 0.32rem 0 0.1rem;
+  margin: 0;
+}
+
+.mythic-pwr strong {
+  font-size: 0.72rem;
+}
+
+/* ── Destello anime: barrido de luz al pasar el mouse ── */
+.mythic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 32%,
+    rgba(255, 244, 214, 0.6) 48%,
+    transparent 62%
+  );
+  background-size: 260% 260%;
+  background-position: 130% 0;
+}
+
+.mythic-card:hover::after {
+  opacity: 1;
+  background-position: -40% 0;
+  transition:
+    background-position 0.8s ease,
+    opacity 0.15s ease;
+}
+
+/* Velo holo que viaja detrás del brillo */
+.mythic-holo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.mythic-card:hover .mythic-holo {
+  opacity: 1;
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .skill-card {
-    width: 100px;
-    padding: 0.8rem;
+  .skills-section {
+    padding: 2rem 1rem 2.4rem;
   }
 
-  .skill-icon {
-    width: 40px;
-    height: 40px;
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .mythic-card {
+    padding: 1.45rem 0.4rem 0.4rem;
+  }
+
+  .mythic-medal {
+    width: 56px;
+    height: 56px;
+  }
+
+  .mythic-medal img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .mythic-name {
+    font-size: 0.74rem;
+  }
+
+  .mythic-alias {
+    display: none;
   }
 
   .skills-title {
     font-size: 1.5rem;
-  }
-
-  .carousel-track {
-    animation-duration: 10s !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .skill-card {
-    width: 80px;
-    padding: 0.5rem;
-  }
-
-  .skill-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .skills-title {
-    font-size: 1.2rem;
-  }
-
-  .carousel-track {
-    animation-duration: 7s !important;
   }
 }

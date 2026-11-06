@@ -1,132 +1,336 @@
+/* ── Intro: carta de presentación sobre papel sepia antiguo ──
+   Todo entra en UNA sola hoja: grilla a 2 columnas centrada
+   verticalmente y tipografías que escalan con el viewport. */
 .intro {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 4rem 2rem;
-  background: radial-gradient(circle at top left, #1a1a2e, #0f0f1a);
-  color: #fff;
-  font-family: "Segoe UI", sans-serif;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(1rem, 2.4vw, 2.2rem);
+  align-items: center;
+  height: 100%;
+  box-sizing: border-box;
+  padding: clamp(1.6rem, 4vh, 3rem) clamp(1.4rem, 3vw, 2.5rem);
+  background-color: var(--paper);
+  /* textura de papel viejo + mancha roja de imprenta */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(43, 28, 16, 0.04) 0 1px,
+      transparent 1px 4px
+    ),
+    radial-gradient(circle at 85% 12%, rgba(182, 66, 42, 0.1), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(53, 112, 140, 0.08), transparent 35%);
+  color: var(--ink);
+}
+
+/* Marco fileteado: doble línea de tinta con margen */
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 3px double rgba(43, 28, 16, 0.7);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Estrellitas del sur en el borde superior del afiche */
+.intro::after {
+  content: "❯ ✶ ✶ ✶ ❮";
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--folk-red);
+  font-size: 0.8rem;
+  letter-spacing: 0.6em;
 }
 
 .intro-text h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-type);
+  font-size: clamp(0.85rem, 2vh, 1.1rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0.4rem 0 0.7rem;
+}
+
+.intro-text h1::after {
+  content: "☆";
+  color: var(--folk-red);
+  margin-left: 0.4em;
 }
 
 .intro-text h2 {
-  font-size: 2rem;
-  line-height: 1.4;
+  font-size: clamp(1.2rem, 1.7vh + 1.1vw, 2rem);
+  line-height: 1.35;
+  margin: 0.3rem 0;
 }
 
 .highlight-purple {
-  color: #d26bff; /* violeta brillante */
+  color: var(--folk-red); /* violeta brillante -> rojo fileteado */
   font-weight: 700;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--celeste-ink);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
 }
 
 .highlight-green {
-  color: #00f2a9;
+  color: var(--celeste-ink);
+}
+
+/* El renglón de la máquina de escribir reserva su lugar desde el inicio:
+   así no hay salto de layout cuando arranca el typing */
+.loop-typewriter {
+  min-height: 1.5em;
 }
 
 .social-icons {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  font-size: 1.5rem;
+  gap: 0.9rem;
+  margin-top: clamp(0.6rem, 1.6vh, 1.2rem);
+  font-size: 1.1rem;
 }
 
+/* Íconos como minibotones de traje vintage */
 .social-icons a {
-  color: #fff;
-  transition: color 0.3s;
+  width: clamp(2rem, 4.5vh, 2.6rem);
+  height: clamp(2rem, 4.5vh, 2.6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  transition:
+    color 0.3s,
+    background-color 0.3s,
+    transform 0.3s;
 }
 
 .social-icons a:hover {
-  color: #00f2a9;
+  background: var(--ink);
+  color: var(--paper);
+  transform: rotate(-6deg);
 }
 
 .intro-buttons {
-  margin-top: 2rem;
+  margin-top: clamp(0.9rem, 2.2vh, 1.6rem);
   display: flex;
-  gap: 1rem;
+  gap: 0.9rem;
   flex-wrap: wrap;
 }
 
+/* Botones tipo boleto de impresión offset */
 .btn {
-  padding: 0.8rem 1.4rem;
-  border-radius: 30px;
+  padding: clamp(0.5rem, 1.2vh, 0.7rem) 1.2rem;
+  border-radius: 3px;
   font-weight: 600;
+  font-family: var(--font-type);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
   border: none;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+  font-size: clamp(0.75rem, 1.6vh, 0.9rem);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .btn-outline {
   background: transparent;
-  border: 2px solid #ffffff;
-  color: #ffffff;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink-soft);
 }
 
 .btn-outline:hover {
-  background: #ffffff;
-  color: #121212;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink-soft);
+  color: var(--folk-red);
+  border-color: var(--folk-red);
 }
 
 .btn-filled {
-  background: linear-gradient(to right, #a32eff, #f953c6);
-  color: white;
+  background: var(--folk-red);
+  border: 2px solid var(--folk-red-deep);
+  color: var(--paper);
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
 .btn-filled:hover {
-  opacity: 0.9;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
+/* ── Ventana de editor: tema oscuro, como VS Code Dark+ ── */
 .intro-code {
-  background-color: #111844;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  overflow-x: auto;
+  position: relative;
+  align-self: center;
+  width: 100%;
+  background-color: #1e1e1e;
+  border: 2px solid #3d3d3d;
+  border-radius: 8px;
+  box-shadow:
+    8px 8px 0 rgba(25, 17, 10, 0.35),
+    0 18px 34px rgba(10, 6, 2, 0.35);
+  overflow: hidden;
   font-family: "Courier New", monospace;
-  font-size: 0.85rem;
-  color: #ffc;
+  font-size: clamp(0.6rem, 1.45vh, 0.78rem);
+  line-height: 1.6;
+  color: #d4d4d4;
+}
+
+/* Barra de título con el semáforo de macOS + pestaña del archivo */
+.code-editor-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #252526;
+  border-bottom: 1px solid #3d3d3d;
+  padding: 8px 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot--red {
+  background: #ff5f57;
+}
+
+.dot--yellow {
+  background: #febc2e;
+}
+
+.dot--green {
+  background: #28c840;
+}
+
+.file-tab {
+  margin-left: 12px;
+  padding: 3px 14px;
+  background: #1e1e1e;
+  border: 1px solid #3d3d3d;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  font-size: 0.72em;
+  letter-spacing: 0.08em;
+  color: #9cdcfe;
+}
+
+/* Papel del editor: desliza solo la ventana, no la hoja entera */
+.code-body {
+  padding: 10px 0;
+  max-height: min(62vh, 640px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1e1e1e;
+}
+
+.code-line {
+  display: flex;
+  align-items: baseline;
+  padding-right: 16px;
+}
+
+.code-line:hover {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+/* Gutter con número de línea */
+.code-ln {
+  flex: 0 0 auto;
+  width: 2.6em;
+  text-align: right;
+  padding-right: 14px;
+  color: #6e6e6e;
+  user-select: none;
+}
+
+.code-src {
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* Resaltado, paleta Dark+ con colores bien separados entre sí */
+.tok-cmt {
+  color: #7bb661;
+  font-style: italic;
+}
+
+.tok-str {
+  color: #f5a25d;
+}
+
+.tok-kw {
+  color: #74aaff;
+}
+
+.tok-num {
+  color: #a8d08d;
+}
+
+.tok-prop {
+  color: #a8e4ff;
+}
+
+.tok-fn {
+  color: #e5d178;
+}
+
+.tok-punct {
+  color: #9a9a9a;
+}
+
+/* Sello de goma sobre el editor */
+.intro-code::after {
+  content: "HIREABLE ✶ 契約可能";
+  position: absolute;
+  top: 52px;
+  right: 1rem;
+  z-index: 2;
+  font-family: var(--font-jp);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: #569cd6;
+  border: 2px solid #569cd6;
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  transform: rotate(8deg);
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .intro {
     grid-template-columns: 1fr;
     text-align: center;
+    padding: 2.2rem 1.1rem 2.8rem;
+    gap: 1.2rem;
   }
 
+  .intro-text h2 {
+    font-size: clamp(1.15rem, 4.6vw, 1.45rem);
+  }
+
+  .loop-typewriter {
+    margin-top: 0.4rem;
+  }
+
+  .social-icons,
   .intro-buttons {
     justify-content: center;
   }
 
   .intro-code {
     text-align: left;
-  }
-
-  .typewriter {
-    border-right: 2px solid #f953c6;
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    font-size: 1.5rem;
-    animation: blink 0.7s infinite;
-    color: #ffffff;
-  }
-
-  .loop-typewriter {
-    margin-top: 0.8rem;
-    font-size: 1.3rem;
-  }
-
-  @keyframes blink {
-    0%,
-    100% {
-      border-color: transparent;
-    }
-    50% {
-      border-color: #f953c6;
-    }
+    font-size: 0.7rem;
   }
 }
