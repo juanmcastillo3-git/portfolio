@@ -217,7 +217,10 @@ function renderCode(code) {
   });
 }
 
-export default function Intro({ onNavigate }) {
+const EMAIL = "juanmcastillo3@gmail.com";
+const CV_URL = "/CV_Juan_Manuel_Castillo_2026.pdf";
+
+export default function Intro() {
   const [showSecondLine, setShowSecondLine] = useState(false);
 
   useEffect(() => {
@@ -277,13 +280,21 @@ export default function Intro({ onNavigate }) {
         </div>
 
         <div className="intro-buttons">
-          <button
+          <a
             className="btn btn-outline"
-            onClick={() => onNavigate?.("contact")}
+            href={`mailto:${EMAIL}?subject=${encodeURIComponent(
+              "Contacto desde el portfolio"
+            )}`}
           >
             CONTACT ME 👤
-          </button>
-          <button className="btn btn-filled">GET RESUME ⬇</button>
+          </a>
+          <a
+            className="btn btn-filled"
+            href={CV_URL}
+            download="CV_Juan_Manuel_Castillo_2026.pdf"
+          >
+            GET RESUME ⬇
+          </a>
         </div>
       </div>
 
