@@ -1,10 +1,34 @@
-/* ── Educations: diploma sellado bajo el cielo estelar ── */
+/* ── Educations: diploma sellado sobre la escena anime educativa ── */
 .educations-section {
+  background-image: url("/anime_education.jpeg");
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
   background-color: var(--space);
   color: var(--paper);
   padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
+}
+
+/* Velo nocturno: viñeta para que las cartas y el título respiren
+   sobre la ilustración, como en la Cover */
+.educations-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      rgba(4, 3, 8, 0.55) 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 85%,
+      rgba(23, 12, 4, 0.5),
+      transparent 60%
+    );
 }
 
 .educations-title {
@@ -26,51 +50,83 @@
 .educations-grid {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 5rem;
+  justify-content: flex-start;
+  gap: 2.5rem;
+  padding-left: clamp(1rem, 4vw, 4rem);
   position: relative;
   z-index: 1;
 }
 
-.educations-image {
-  position: relative;
-  width: 320px;
+/* mano de truco: dos cartas verticales, en abanico */
+.education-cards {
   display: flex;
-  justify-content: center;
-}
-
-/* Resplandor estelar en lugar de neón púrpura */
-.educations-light {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 140px;
-  background: radial-gradient(
-    circle at center,
-    rgba(140, 196, 217, 0.55),
-    transparent 70%
-  );
-  filter: blur(50px);
-  z-index: 0;
-}
-
-.educations-image img {
-  width: 100%;
-  max-width: 320px;
+  flex-direction: row;
+  align-items: flex-start;
   position: relative;
   z-index: 1;
-  filter: sepia(45%) contrast(1.05);
 }
 
-/* Diploma: doble marco dorado */
+/* ── La carta: baraja española vertical, grande ── */
 .education-card {
+  --tilt: 0deg;
   position: relative;
-  background: rgba(26, 29, 49, 0.85);
-  border: 3px double var(--gold);
-  border-radius: 3px;
-  padding: 1.5rem 2rem;
-  max-width: 420px;
-  box-shadow: 0 0 25px rgba(10, 6, 2, 0.4);
+  background: linear-gradient(160deg, #f7efdc 0%, #efe3c6 55%, #e6d4b0 100%);
+  border: 3px solid #8a5a20;
+  border-radius: 14px;
+  width: clamp(252px, 22vw, 326px);
+  aspect-ratio: 63 / 88;
+  min-height: 362px;
+  padding: 3rem 1.7rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  box-shadow:
+    10px 12px 0 rgba(10, 6, 2, 0.45),
+    0 18px 34px rgba(10, 6, 2, 0.4);
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  transform: rotate(var(--tilt));
+  isolation: isolate;
+}
+
+/* filete interior dorado, como el orlo de la baraja */
+.education-card::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1.5px solid rgba(198, 154, 55, 0.7);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* jugada ganadora: la carta se alza y busca verse */
+.education-card:hover {
+  transform: translateY(-10px) rotate(calc(var(--tilt) * 0.25)) scale(1.02);
+  border-color: #6b3d1f;
+  box-shadow:
+    12px 16px 0 rgba(10, 6, 2, 0.5),
+    0 26px 44px rgba(10, 6, 2, 0.5),
+    0 0 34px rgba(238, 207, 116, 0.25);
+  z-index: 3;
+}
+
+/* as de espada: la carta maestra, más alzada */
+.education-card--espada {
+  --tilt: -5deg;
+  z-index: 2;
+}
+
+/* siete de oro: la carta que la sigue en la mano */
+.education-card--oro {
+  --tilt: 4deg;
+  margin-left: -38px;
+  margin-top: 20px;
+  z-index: 1;
 }
 
 .education-card::after {
@@ -90,22 +146,128 @@
   pointer-events: none;
 }
 
+/* textos de la carta, tinta sobre papel baraja */
+.education-date,
+.education-degree,
+.education-university,
+.education-saying {
+  position: relative;
+  z-index: 1;
+}
+
 .education-date {
-  color: var(--celeste);
+  color: #8a2f1c;
   font-family: var(--font-type);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .education-degree {
-  font-size: 1.4rem;
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+  line-height: 1.15;
   margin: 0.5rem 0;
-  color: var(--paper);
+  color: #2b1c10;
 }
 
 .education-university {
-  font-size: 1rem;
-  color: #cdb787;
+  font-size: 0.96rem;
+  line-height: 1.3;
+  color: #5d4530;
   font-family: var(--font-body);
+  max-width: 92%;
+}
+
+.education-card--oro::after {
+  color: #b3893a;
+  border-color: #b3893a;
+}
+
+/* palo grande en el centro, como figura de la baraja */
+.education-center-suit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.education-center-suit svg {
+  display: block;
+  width: 104px;
+  height: auto;
+}
+
+.education-center-suit .pip-icon--oro {
+  width: 108px;
+  height: 108px;
+}
+
+/* índices de esquina, como en la baraja española — bien grandes */
+.education-pip {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #2b3a5e;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.education-card--oro .education-pip {
+  color: #8a6a16;
+}
+
+.education-pip--flipped {
+  top: auto;
+  left: auto;
+  bottom: 15px;
+  right: 16px;
+  transform: rotate(180deg);
+}
+
+.education-pip-num {
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+}
+
+.pip-icon {
+  width: 17px;
+  height: 31px;
+}
+
+.pip-icon--oro {
+  width: 28px;
+  height: 28px;
+}
+
+/* lema de la baraja, en cinta al pie de la carta */
+.education-saying {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgba(107, 61, 31, 0.5);
+  font-style: italic;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: #6b3d1f;
+  font-family: var(--font-body);
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .educations-grid {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .education-cards {
+    width: 100%;
+    max-width: 420px;
+  }
 }

@@ -18,20 +18,18 @@ const projects = [
       "I worked as a Functional Analyst on an integrated event management platform developed for the Argentine Chamber of Commerce and Services (CAC). The project involved analyzing requirements, defining business processes, and coordinating the development of the event registration website. The platform integrated registration forms with a MySQL database, SAP for automated billing processes, and HubSpot CRM for synchronizing and managing customer information. My responsibilities included ensuring seamless communication between systems, validating integrations, coordinating technical requirements, and supporting the implementation of an end-to-end solution that streamlined event registration, invoicing, and customer acquisition.",
   },
   {
-    name: "Team System App",
+    name: "Booking System",
     tools: [
-      "ASP.NET Core",
-      "Telerik UI",
-      "AngularJS",
-      "Bootstrap",
-      "MS SQL",
-      "Visual Studio",
-      "Git",
-      "Jenkins",
+      "Next.js",
+      "React",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Vercel",
     ],
     myRole: "Full Stack Developer",
     description:
-      "As a C# Full-Stack Developer, I contributed to the development of the TeamSystem website. My role involved implementing various features using ASP.NET for the backend, ensuring a robust and scalable infrastructure. On the frontend, I utilized Telerik controls to create a rich and responsive user interface.",
+      "A dynamic booking application that lets different businesses manage appointments in real time: customers pick a service, choose an available slot and confirm their reservation, while each business handles its own calendar from a single dashboard. Built with Next.js on the frontend and Supabase under the hood, using PostgreSQL row-level security for safe multi-tenant data and edge functions for instant availability updates. Synchronized email notifications and automatic conflict prevention ensured that every seat counted and no double bookings slipped through.",
   },
 ];
 
