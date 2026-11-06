@@ -67,8 +67,8 @@ export default function Experience() {
       <div className="experience-grid">
         <div className="experience-left">
           <img
-            src="/coder-night.svg"
-            alt="Ilustración animada: perfil nocturno de developer frente al código, con mate"
+            src="/anime-coder.svg"
+            alt="Ilustración anime estilo programación: coder con capucha y auriculares entre dos monitores con código, mate y gato"
             className="experience-image"
           />
         </div>
