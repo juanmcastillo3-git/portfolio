@@ -26,9 +26,40 @@ const experiences = [
   },
 ];
 
+const SPARKS = [
+  { left: "8%", delay: "0s", dur: "5.5s", glyph: "✶", size: "13px", color: "#b6422a" },
+  { left: "28%", delay: "1.4s", dur: "6.5s", glyph: "✦", size: "11px", color: "#c69a37" },
+  { left: "52%", delay: "0.7s", dur: "6s", glyph: "✶", size: "14px", color: "#35708c" },
+  { left: "74%", delay: "2.1s", dur: "5.8s", glyph: "✦", size: "10px", color: "#b6422a" },
+  { left: "90%", delay: "1s", dur: "6.2s", glyph: "✶", size: "12px", color: "#c69a37" },
+];
+
 export default function Experience() {
   return (
     <section className="experience-container" id="experience">
+      {/* Fondo folclórico animado: sol que gira, poncho en los bordes
+          y brasas/estrellitas que suben (decorativo, no afecta lectura) */}
+      <div className="experience-fx" aria-hidden="true">
+        <span className="fx-sun" />
+        <span className="fx-poncho fx-poncho--top" />
+        <span className="fx-poncho fx-poncho--bottom" />
+        {SPARKS.map((s, i) => (
+          <span
+            key={i}
+            className="fx-spark"
+            style={{
+              left: s.left,
+              animationDelay: s.delay,
+              animationDuration: s.dur,
+              fontSize: s.size,
+              color: s.color,
+            }}
+          >
+            {s.glyph}
+          </span>
+        ))}
+      </div>
+
       <h2 className="experience-title">
         Experiences<span className="jp-kicker" aria-hidden="true">経験</span>
       </h2>

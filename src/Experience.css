@@ -1,5 +1,7 @@
 /* ── Experience: telegramas de oficina, papel sepia ── */
 .experience-container {
+  position: relative;
+  overflow: hidden;
   padding: 3.5rem 2rem 4rem;
   background-color: var(--paper);
   color: var(--ink);
@@ -10,6 +12,171 @@
   );
   border-top: 3px double var(--gold);
   border-bottom: 3px double var(--gold);
+}
+
+/* Capa anime: estrellitas ✶ que titilan y derivan (tempo de la pampa
+   estelar pero sobre papel sepia, sin oscurecer el fondo) */
+.experience-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    /* resplandores cálidos folk que respiran */
+    radial-gradient(circle at 88% 12%, rgba(182, 66, 42, 0.1), transparent 40%),
+    radial-gradient(circle at 10% 88%, rgba(198, 154, 55, 0.12), transparent 42%),
+    radial-gradient(circle at 50% 50%, rgba(53, 112, 140, 0.07), transparent 55%),
+    /* estrellitas ✶ en paleta del folklore */
+    radial-gradient(1.5px 1.5px at 38px 44px, rgba(182, 66, 42, 0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 142px 96px, rgba(198, 154, 55, 0.55) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 236px 172px, rgba(53, 112, 140, 0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 78px 214px, rgba(182, 66, 42, 0.4) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 298px 52px, rgba(198, 154, 55, 0.5) 50%, transparent 51%);
+  background-size:
+    auto, auto, auto, 300px 300px, 300px 300px, 300px 300px, 300px 300px,
+    300px 300px;
+  opacity: 0.85;
+  animation:
+    exp-star-twinkle 3.4s ease-in-out infinite,
+    exp-star-drift 38s linear infinite;
+}
+
+/* Capa folclórica: brillo cálido que respira + viñeta de papel */
+.experience-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 62%, rgba(43, 28, 16, 0.12) 100%);
+  animation: exp-glow-pulse 5.5s ease-in-out infinite;
+}
+
+.experience-title,
+.experience-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Fondo folclórico animado (decorativo) ── */
+.experience-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Sol de Mayo: rayos cónicos que giran muy lento detrás de todo,
+   en oro y rojo folk a baja opacidad para no tapar el papel */
+.fx-sun {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 920px;
+  height: 920px;
+  margin: -460px 0 0 -460px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(198, 154, 55, 0.16) 0deg 7deg,
+    transparent 7deg 16deg,
+    rgba(182, 66, 42, 0.09) 16deg 19deg,
+    transparent 19deg 28deg
+  );
+  opacity: 0.6;
+  animation: exp-sun-spin 52s linear infinite;
+}
+
+@keyframes exp-sun-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Franjas de poncho en los bordes: se deslizan sin parar */
+.fx-poncho {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    #b6422a 0 28px,
+    #c69a37 28px 56px,
+    #35708c 56px 84px,
+    #2b1c10 84px 112px,
+    #8a2f1c 112px 140px
+  );
+  background-size: 140px 100%;
+  background-repeat: repeat-x;
+  opacity: 0.85;
+  box-shadow: 0 1px 0 rgba(43, 28, 16, 0.35);
+  animation: exp-poncho-slide 14s linear infinite;
+}
+
+.fx-poncho--top {
+  top: 0;
+}
+
+.fx-poncho--bottom {
+  bottom: 0;
+  animation-direction: reverse;
+}
+
+@keyframes exp-poncho-slide {
+  from { background-position-x: 0; }
+  to { background-position-x: 140px; }
+}
+
+/* Brasas / estrellitas criollas que suben como si hubiera fogón */
+.fx-spark {
+  position: absolute;
+  bottom: 10%;
+  line-height: 1;
+  opacity: 0;
+  text-shadow: 0 0 10px rgba(198, 154, 55, 0.45);
+  animation: exp-spark-rise 6s ease-out infinite;
+}
+
+@keyframes exp-spark-rise {
+  0% { transform: translateY(18px) translateX(0) scale(0.85); opacity: 0; }
+  15% { opacity: 0.85; }
+  80% { opacity: 0.55; }
+  100% { transform: translateY(-300px) translateX(14px) scale(1.15); opacity: 0; }
+}
+
+@keyframes exp-star-twinkle {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes exp-star-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to {
+    background-position:
+      0 0, 0 0, 0 0, 300px 150px, 300px 150px, 300px 150px, 300px 150px,
+      300px 150px;
+  }
+}
+
+@keyframes exp-glow-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-container::before,
+  .experience-container::after,
+  .experience-image,
+  .experience-title::before,
+  .experience-title::after,
+  .fx-sun,
+  .fx-poncho,
+  .fx-spark {
+    animation: none;
+  }
 }
 
 .experience-title {
@@ -25,6 +192,13 @@
 .experience-title::after {
   content: " ✶ ";
   color: var(--gold);
+  display: inline-block;
+  animation: exp-title-star 2.8s ease-in-out infinite;
+}
+
+@keyframes exp-title-star {
+  0%, 100% { opacity: 0.65; transform: scale(0.92) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.12) rotate(12deg); }
 }
 
 .experience-grid {
@@ -52,6 +226,12 @@
   box-shadow:
     0 0 0 4px rgba(16, 22, 43, 0.9),
     0 0 34px rgba(77, 183, 214, 0.2);
+  animation: exp-image-float 6s ease-in-out infinite;
+}
+
+@keyframes exp-image-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
 }
 
 .experience-right {
@@ -63,6 +243,8 @@
 
 /* Tarjeta tipo formulario impreso (ahora clickeable a la web de la empresa) */
 .experience-card {
+  position: relative;
+  overflow: hidden;
   background: var(--paper-2);
   border: 2px solid var(--ink);
   border-radius: 2px;
@@ -74,6 +256,39 @@
   color: inherit;
   text-decoration: none;
   display: block;
+  isolation: isolate;
+}
+
+/* brillo anime folk que barre la tarjeta al pasar el mouse */
+.experience-card::after {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -90%;
+  z-index: 0;
+  width: 55%;
+  height: 240%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 251, 235, 0.38),
+    transparent
+  );
+  transform: rotate(18deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: left 0.7s ease, opacity 0.2s ease;
+}
+
+.experience-card:hover::after,
+.experience-card:focus-visible::after {
+  left: 150%;
+  opacity: 1;
+}
+
+.experience-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* sello ↗ para señalar que lleva afuera */

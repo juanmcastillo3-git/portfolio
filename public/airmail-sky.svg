@@ -1,0 +1,233 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Avión criollo con colores postales volando sobre nubes claras, como un viaje en avión al amanecer">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7fbff"/>
+      <stop offset="0.45" stop-color="#e6f3f8"/>
+      <stop offset="0.75" stop-color="#f3ecd9"/>
+      <stop offset="1" stop-color="#ecd9ae"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f3dd96" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#f3dd96" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fuse" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fdf6e0"/>
+      <stop offset="0.55" stop-color="#f3dd96"/>
+      <stop offset="1" stop-color="#e3c874"/>
+    </linearGradient>
+    <linearGradient id="wing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b6422a"/>
+      <stop offset="1" stop-color="#8a2f1c"/>
+    </linearGradient>
+    <linearGradient id="tail" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#35708c"/>
+      <stop offset="1" stop-color="#1f4c60"/>
+    </linearGradient>
+    <pattern id="poncho" width="84" height="20" patternUnits="userSpaceOnUse">
+      <rect x="0" width="18" height="20" fill="#b6422a"/>
+      <rect x="18" width="18" height="20" fill="#c69a37"/>
+      <rect x="36" width="18" height="20" fill="#35708c"/>
+      <rect x="54" width="18" height="20" fill="#2b1c10"/>
+      <rect x="72" width="12" height="20" fill="#8a2f1c"/>
+    </pattern>
+    <style>
+      .cloud {
+        animation: cloudDrift 28s linear infinite;
+      }
+      .cloud--slow { animation-duration: 42s; }
+      .cloud--2 { animation-delay: -14s; }
+      .cloud--3 { animation-delay: -28s; }
+      @keyframes cloudDrift {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-900px); }
+      }
+
+      .planeFloat {
+        animation: planeBob 3.4s ease-in-out infinite;
+      }
+      @keyframes planeBob {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-9px) rotate(-1.1deg); }
+      }
+
+      .prop {
+        animation: propSpin 0.5s linear infinite;
+        transform-origin: 0 0;
+        transform-box: fill-box;
+      }
+      @keyframes propSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .trail {
+        animation: trailFlow 1.6s linear infinite;
+      }
+      @keyframes trailFlow {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 0.85; }
+      }
+
+      .tw {
+        animation: twinkle 2.8s ease-in-out infinite;
+      }
+      .tw--2 { animation-delay: 0.9s; }
+      .tw--3 { animation-delay: 1.7s; }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.45; }
+        50% { opacity: 1; }
+      }
+
+      .sunSpin {
+        animation: spin 36s linear infinite;
+        transform-origin: center;
+        transform-box: fill-box;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </defs>
+
+  <!-- ══ Cielo claro de día ══ -->
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="610" cy="128" r="150" fill="url(#sun)"/>
+
+  <!-- Sol de Mayo girando, pálido -->
+  <g transform="translate(610 128)">
+    <g class="sunSpin" stroke="#c69a37" stroke-width="3" stroke-linecap="round" opacity="0.55">
+      <line x1="0" y1="-52" x2="0" y2="-64"/>
+      <line x1="0" y1="52" x2="0" y2="64"/>
+      <line x1="-52" y1="0" x2="-64" y2="0"/>
+      <line x1="52" y1="0" x2="64" y2="0"/>
+      <line x1="-37" y1="-37" x2="-45" y2="-45"/>
+      <line x1="37" y1="37" x2="45" y2="45"/>
+      <line x1="-37" y1="37" x2="-45" y2="45"/>
+      <line x1="37" y1="-37" x2="45" y2="-45"/>
+    </g>
+    <circle r="34" fill="#f3dd96" stroke="#c69a37" stroke-width="3"/>
+    <circle r="22" fill="none" stroke="#b6422a" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.7"/>
+  </g>
+
+  <!-- ── CAPA DE NUBES (corre hacia atrás, como desde el avión) ── -->
+  <g fill="#ffffff" opacity="0.9">
+    <g class="cloud">
+      <ellipse cx="160" cy="96" rx="110" ry="30"/><ellipse cx="200" cy="78" rx="70" ry="26"/>
+      <ellipse cx="1080" cy="96" rx="110" ry="30"/><ellipse cx="1120" cy="78" rx="70" ry="26"/>
+    </g>
+    <g class="cloud cloud--2" opacity="0.95">
+      <ellipse cx="430" cy="168" rx="130" ry="34"/><ellipse cx="480" cy="146" rx="80" ry="28"/>
+      <ellipse cx="1350" cy="168" rx="130" ry="34"/><ellipse cx="1400" cy="146" rx="80" ry="28"/>
+    </g>
+    <g class="cloud cloud--slow cloud--3">
+      <ellipse cx="70" cy="430" rx="150" ry="42"/><ellipse cx="140" cy="398" rx="90" ry="32"/>
+      <ellipse cx="990" cy="430" rx="150" ry="42"/><ellipse cx="1060" cy="398" rx="90" ry="32"/>
+    </g>
+    <g class="cloud cloud--slow cloud--2">
+      <ellipse cx="560" cy="478" rx="170" ry="48"/><ellipse cx="640" cy="442" rx="100" ry="34"/>
+      <ellipse cx="1480" cy="478" rx="170" ry="48"/><ellipse cx="1560" cy="442" rx="100" ry="34"/>
+    </g>
+    <g class="cloud" opacity="0.55">
+      <ellipse cx="700" cy="70" rx="90" ry="22"/><ellipse cx="1620" cy="70" rx="90" ry="22"/>
+    </g>
+  </g>
+
+  <!-- Contrails / estelas detrás del avión -->
+  <g class="trail" stroke="#8cc4d9" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.6">
+    <path d="M232 258 q -60 8 -120 22 q -60 14 -120 12"/>
+    <path d="M228 282 q -56 6 -110 16" opacity="0.45"/>
+  </g>
+  <g fill="#8cc4d9" class="trail">
+    <circle cx="150" cy="284" r="5" opacity="0.7"/>
+    <circle cx="70" cy="292" r="4" opacity="0.4"/>
+  </g>
+
+  <!-- ── Líneas de velocidad (aire anime, tenues sobre fondo claro) ── -->
+  <g fill="#35708c" opacity="0.14">
+    <rect x="140" y="200" width="130" height="4" rx="2"/>
+    <rect x="90" y="232" width="80" height="4" rx="2"/>
+    <rect x="620" y="240" width="110" height="4" rx="2"/>
+    <rect x="660" y="268" width="70" height="4" rx="2"/>
+  </g>
+
+  <!-- Estrellitas tenues (brillo alto, como en anime diurno) -->
+  <g fill="#c69a37">
+    <path class="tw" d="M150 300 L152 306 L158 308 L152 310 L150 316 L148 310 L142 308 L148 306 Z"/>
+    <path class="tw tw--2" d="M640 300 L642 306 L648 308 L642 310 L640 316 L638 310 L632 308 L638 306 Z"/>
+    <path class="tw tw--3" d="M520 150 L522 156 L528 158 L522 160 L520 166 L518 160 L512 158 L518 156 Z"/>
+  </g>
+
+  <!-- ── AVIÓN CRIOLLO volando hacia la derecha ── -->
+  <g transform="translate(420 265)">
+    <g class="planeFloat">
+      <!-- sombra tenue debajo -->
+      <ellipse cx="20" cy="112" rx="180" ry="16" fill="#35708c" opacity="0.08"/>
+      <!-- cola - celeste pampeano -->
+      <path d="M-145 -18 L-188 -58 Q-196 -64 -192 -44 L-184 -6 Z" fill="url(#tail)" stroke="#1f4c60" stroke-width="2"/>
+      <path d="M-145 -2 L-182 38 Q-190 46 -182 28 L-164 2 Z" fill="url(#tail)" stroke="#1f4c60" stroke-width="2"/>
+      <!-- fuselaje - crema postal con filete -->
+      <path d="M-150 -30 C-60 -46 90 -40 168 -18 C196 -10 206 4 196 18 C186 32 160 40 128 44 L-124 44 C-146 40 -156 10 -150 -30 Z"
+            fill="url(#fuse)" stroke="#8a5a20" stroke-width="2.5"/>
+      <!-- línea fileteada celeste -->
+      <path d="M-146 -8 C-40 -14 130 -8 192 8" stroke="#35708c" stroke-width="4" fill="none" opacity="0.85"/>
+      <path d="M-146 -8 C-40 -14 130 -8 192 8" stroke="#b6422a" stroke-width="1.5" fill="none" stroke-dasharray="10 6" opacity="0.7"/>
+      <!-- ventanas -->
+      <g fill="#1a2f44" stroke="#8a5a20" stroke-width="2">
+        <circle cx="-86" cy="-4" r="16"/><circle cx="-38" cy="-8" r="16"/>
+        <circle cx="10" cy="-10" r="16"/><circle cx="58" cy="-10" r="16"/>
+        <circle cx="104" cy="-6" r="14"/>
+      </g>
+      <g fill="#a8e4ff" opacity="0.7">
+        <circle cx="-82" cy="-10" r="5"/><circle cx="-34" cy="-14" r="5"/>
+        <circle cx="14" cy="-16" r="5"/><circle cx="62" cy="-16" r="5"/>
+      </g>
+      <!-- ala superior - rojo folk -->
+      <path d="M-20 -30 L56 -96 Q68 -102 60 -84 L20 -18 Z" fill="url(#wing)" stroke="#7a2a1a" stroke-width="2.5"/>
+      <!-- ala inferior -->
+      <path d="M-6 32 L34 74 Q44 84 30 84 L-18 44 Z" fill="url(#wing)" stroke="#7a2a1a" stroke-width="2.5"/>
+      <!-- solcito en la cola del fuselaje -->
+      <circle cx="-112" cy="10" r="14" fill="#e3c874" stroke="#8a6a16" stroke-width="2"/>
+      <g stroke="#8a6a16" stroke-width="1.8" stroke-linecap="round">
+        <line x1="-112" y1="-8" x2="-112" y2="-2"/><line x1="-112" y1="22" x2="-112" y2="28"/>
+        <line x1="-130" y1="10" x2="-124" y2="10"/><line x1="-94" y1="10" x2="-100" y2="10"/>
+      </g>
+      <!-- hélice -->
+      <g transform="translate(202 2)">
+        <circle r="10" fill="#2b1c10"/>
+        <g class="prop">
+          <ellipse cx="0" cy="-26" rx="6" ry="26" fill="#2b1c10" opacity="0.95"/>
+          <ellipse cx="0" cy="26" rx="6" ry="26" fill="#2b1c10" opacity="0.95"/>
+        </g>
+        <circle r="8" fill="#c69a37" stroke="#2b1c10" stroke-width="2"/>
+      </g>
+      <!-- estampilla postal colgando -->
+      <g transform="translate(70 62) rotate(4)">
+        <rect width="54" height="42" fill="#f0e3bd" stroke="#2b1c10" stroke-width="1.5"/>
+        <rect x="3" y="3" width="48" height="36" fill="#f7fbff"/>
+        <text x="27" y="24" text-anchor="middle" font-size="16" fill="#b6422a">✈</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ── Montañas criollas lejanas, pálidas por el aire ── -->
+  <path d="M0 600 V530 L110 470 L220 535 L340 460 L480 540 L610 475 L800 535 V600 Z" fill="#cfe4ee" opacity="0.75"/>
+  <path d="M0 600 V552 L150 505 L320 568 L490 512 L650 572 L800 528 V600 Z" fill="#a8d0e8" opacity="0.9"/>
+  <!-- Bandada matutina -->
+  <g stroke="#35708c" stroke-width="2.2" fill="none" opacity="0.65" stroke-linecap="round">
+    <path d="M92 520 Q101 512 110 520"/>
+    <path d="M122 508 Q131 500 140 508"/>
+    <path d="M154 518 Q163 510 172 518"/>
+  </g>
+
+  <!-- Texto vertical japonés -->
+  <text x="762" y="46" font-size="22" fill="#35708c" opacity="0.8"
+        writing-mode="vertical-rl" letter-spacing="8" font-family="'Noto Serif JP',serif">空の旅・連絡便</text>
+
+  <!-- Leyenda tiptográfica -->
+  <text x="30" y="566" font-size="13" fill="#5d4530" opacity="0.8"
+        font-family="'Special Elite','Courier New',monospace" letter-spacing="2">AIRMAIL ✶ 定期便 ✶ BUENOS AIRES →</text>
+
+  <!-- Franja de poncho -->
+  <rect x="0" y="580" width="800" height="20" fill="url(#poncho)"/>
+  <rect x="0" y="578" width="800" height="3" fill="#2b1c10" opacity="0.7"/>
+</svg>

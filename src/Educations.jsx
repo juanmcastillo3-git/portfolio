@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./educations.css";
 
 /* Cada logro académico es una carta fuerte del truco: número, palo y su lema. */
@@ -10,6 +10,14 @@ const educations = [
     degree: "SYSTEMS ANALYST",
     university: "ORT Argentina - Almagro, Buenos Aires",
     saying: "«El as de espada ataja todo.»",
+  },
+  {
+    number: "7",
+    suit: "espada",
+    date: "2025",
+    degree: "FRONTEND DEVELOPER",
+    university: "CoderHouse",
+    saying: "«Siete de espada: píxel a píxel, se gana la mano.»",
   },
   {
     number: "7",
@@ -56,35 +64,87 @@ const SuitIcon = ({ suit }) => {
 };
 
 const Educations = () => {
+  /* Las cartas arrancan dadas vueltas (mano repartida) y el click
+     las da vuelta a la mesa. */
+  const [flipped, setFlipped] = useState([false, false, false]);
+
+  const toggleFlipped = (index) =>
+    setFlipped((prev) => prev.map((v, i) => (i === index ? !v : v)));
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleFlipped(index);
+    }
+  };
+
   return (
     <section className="educations-section" id="educations">
       <h2 className="educations-title">
         Educations<span className="jp-kicker" aria-hidden="true">教育</span>
       </h2>
+      <p className="educations-hint" aria-hidden="true">
+        ✶ Tocá una carta para darla vuelta ✶
+      </p>
 
       <div className="educations-grid">
         <div className="education-cards">
-          {educations.map((edu, index) => (
-            <div className={`education-card education-card--${edu.suit}`} key={index}>
-              <span className="education-pip" aria-hidden="true">
-                <span className="education-pip-num">{edu.number}</span>
-                <SuitIcon suit={edu.suit} />
-              </span>
-              <span className="education-pip education-pip--flipped" aria-hidden="true">
-                <span className="education-pip-num">{edu.number}</span>
-                <SuitIcon suit={edu.suit} />
-              </span>
+          {educations.map((edu, index) => {
+            const isFlipped = flipped[index];
+            return (
+              <div
+                className={`education-card education-card--${edu.suit}${
+                  isFlipped ? " is-flipped" : ""
+                }`}
+                key={index}
+                role="button"
+                tabIndex={0}
+                onClick={() => toggleFlipped(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                aria-label={
+                  isFlipped
+                    ? `${edu.degree} en ${edu.university} — en la mesa, tocá para darla vuelta`
+                    : `Carta dada vuelta — tocá para ver ${edu.degree} en ${edu.university}`
+                }
+                aria-pressed={isFlipped}
+              >
+                <div className="education-card-inner">
+                  {/* Dorso: la mano repartida, dada vuelta */}
+                  <div className="education-card-face education-card-back" aria-hidden="true">
+                    <span className="education-back-ornament">❯ ✶ ✶ ✶ ❮</span>
+                    <span className="education-back-title">GAUCHO</span>
+                    <span className="education-back-sun" aria-hidden="true">
+                      <span className="education-back-sun-face" />
+                    </span>
+                    <span className="education-back-kana">ガウチョ</span>
+                    <span className="education-back-ornament">❯ ✶ ✶ ✶ ❮</span>
+                    <span className="education-back-flip">tocá para dar vuelta →</span>
+                  </div>
 
-              <span className="education-center-suit" aria-hidden="true">
-                <SuitIcon suit={edu.suit} />
-              </span>
+                  {/* Frente: la carta jugada en la mesa */}
+                  <div className="education-card-face education-card-front">
+                    <span className="education-pip" aria-hidden="true">
+                      <span className="education-pip-num">{edu.number}</span>
+                      <SuitIcon suit={edu.suit} />
+                    </span>
+                    <span className="education-pip education-pip--flipped" aria-hidden="true">
+                      <span className="education-pip-num">{edu.number}</span>
+                      <SuitIcon suit={edu.suit} />
+                    </span>
 
-              <span className="education-date">{edu.date}</span>
-              <h3 className="education-degree">{edu.degree}</h3>
-              <p className="education-university">{edu.university}</p>
-              <p className="education-saying">{edu.saying}</p>
-            </div>
-          ))}
+                    <span className="education-center-suit" aria-hidden="true">
+                      <SuitIcon suit={edu.suit} />
+                    </span>
+
+                    <span className="education-date">{edu.date}</span>
+                    <h3 className="education-degree">{edu.degree}</h3>
+                    <p className="education-university">{edu.university}</p>
+                    <p className="education-saying">{edu.saying}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -6,6 +6,15 @@ import { FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 const EMAIL = "juanmcastillo3@gmail.com";
 const MAX_MSG = 1000; // límite del mensaje: entre 500 y 1000 → usamos 1000
 
+/* Brasas/estrellitas que suben como en Experience */
+const SPARKS = [
+  { left: "10%", delay: "0s", dur: "5.5s", glyph: "✶", size: "13px", color: "#b6422a" },
+  { left: "30%", delay: "1.4s", dur: "6.5s", glyph: "✦", size: "11px", color: "#c69a37" },
+  { left: "55%", delay: "0.7s", dur: "6s", glyph: "✶", size: "14px", color: "#35708c" },
+  { left: "76%", delay: "2.1s", dur: "5.8s", glyph: "✦", size: "10px", color: "#b6422a" },
+  { left: "90%", delay: "1s", dur: "6.2s", glyph: "✶", size: "12px", color: "#c69a37" },
+];
+
 export default function Contact() {
   const [form, setForm] = useState({ nombre: "", asunto: "", mensaje: "" });
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
@@ -63,6 +72,29 @@ export default function Contact() {
 
   return (
     <section className="contact-container" id="contact">
+      {/* Fondo de viaje en avión: sol que gira, poncho en los bordes
+          y brasas/estrellitas que suben (decorativo) */}
+      <div className="contact-fx" aria-hidden="true">
+        <span className="fx-sun" />
+        <span className="fx-poncho fx-poncho--top" />
+        <span className="fx-poncho fx-poncho--bottom" />
+        {SPARKS.map((s, i) => (
+          <span
+            key={i}
+            className="fx-spark"
+            style={{
+              left: s.left,
+              animationDelay: s.delay,
+              animationDuration: s.dur,
+              fontSize: s.size,
+              color: s.color,
+            }}
+          >
+            {s.glyph}
+          </span>
+        ))}
+      </div>
+
       <h2 className="contact-title">
         Contact<span className="jp-kicker" aria-hidden="true">連絡</span>
       </h2>
@@ -70,8 +102,8 @@ export default function Contact() {
       <div className="contact-content">
         <div className="contact-side">
           <img
-            src="/contact-illustration.svg"
-            alt="Sobre postal vintage volando bajo el cielo estelar de la pampa"
+            src="/airmail-sky.svg"
+            alt="Avión criollo con colores postales volando sobre nubes claras, como un viaje en avión al amanecer"
             className="contact-image"
           />
 

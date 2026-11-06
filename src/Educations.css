@@ -47,6 +47,18 @@
   color: var(--folk-red);
 }
 
+/* Pista de juego: las cartas vienen dadas vueltas */
+.educations-hint {
+  margin: -2.2rem 0 2.6rem;
+  text-align: center;
+  font-family: var(--font-type);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  color: #e6d3a8;
+  position: relative;
+  z-index: 1;
+}
+
 .educations-grid {
   display: flex;
   align-items: center;
@@ -57,45 +69,116 @@
   z-index: 1;
 }
 
-/* mano de truco: dos cartas verticales, en abanico */
+/* mano de truco: tres cartas verticales, en abanico */
 .education-cards {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
   position: relative;
   z-index: 1;
 }
 
-/* ── La carta: baraja española vertical, grande ── */
+/* ── La carta: baraja española vertical, que se da vuelta ── */
 .education-card {
   --tilt: 0deg;
   position: relative;
-  background: linear-gradient(160deg, #f7efdc 0%, #efe3c6 55%, #e6d4b0 100%);
-  border: 3px solid #8a5a20;
-  border-radius: 14px;
   width: clamp(252px, 22vw, 326px);
   aspect-ratio: 63 / 88;
   min-height: 362px;
-  padding: 3rem 1.7rem 2.2rem;
+  cursor: pointer;
+  transform: rotate(var(--tilt));
+  perspective: 1200px;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    z-index 0s;
+  /* Reparto: cada carta entra como si la tiraran de la baraja */
+  animation: education-deal-in 0.65s cubic-bezier(0.22, 1.1, 0.36, 1) backwards;
+}
+
+.education-cards .education-card:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+.education-cards .education-card:nth-child(2) {
+  animation-delay: 0.24s;
+}
+
+.education-cards .education-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes education-deal-in {
+  from {
+    opacity: 0;
+    transform: translateY(56px) translateX(-18px)
+      rotate(calc(var(--tilt) - 10deg)) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(var(--tilt)) scale(1);
+  }
+}
+
+/* jugada ganadora: la carta se alza y busca verse */
+.education-card:hover {
+  transform: translateY(-10px) rotate(calc(var(--tilt) * 0.25)) scale(1.02);
+  z-index: 4;
+}
+
+.education-card:focus-visible {
+  outline: 3px solid var(--celeste);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+/* En la mesa: un poquito más presente que en la mano */
+.education-card.is-flipped {
+  z-index: 4;
+}
+
+/* El "giro" de la carta: el interior gira en 3D */
+.education-card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+/* Sin flip se ve el dorso (mano repartida); con flip se ve el frente (mesa) */
+.education-card.is-flipped .education-card-inner {
+  transform: rotateY(180deg);
+}
+
+.education-card-face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* Frente: papel baraja con la data académica */
+.education-card-front {
   gap: 0.35rem;
+  padding: 3rem 1.7rem 2.2rem;
+  justify-content: center;
+  background: linear-gradient(160deg, #f7efdc 0%, #efe3c6 55%, #e6d4b0 100%);
+  border: 3px solid #8a5a20;
   box-shadow:
     10px 12px 0 rgba(10, 6, 2, 0.45),
     0 18px 34px rgba(10, 6, 2, 0.4);
-  transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
-  transform: rotate(var(--tilt));
-  isolation: isolate;
+  transform: rotateY(180deg);
 }
 
 /* filete interior dorado, como el orlo de la baraja */
-.education-card::before {
+.education-card-front::before {
   content: "";
   position: absolute;
   inset: 9px;
@@ -104,32 +187,7 @@
   pointer-events: none;
 }
 
-/* jugada ganadora: la carta se alza y busca verse */
-.education-card:hover {
-  transform: translateY(-10px) rotate(calc(var(--tilt) * 0.25)) scale(1.02);
-  border-color: #6b3d1f;
-  box-shadow:
-    12px 16px 0 rgba(10, 6, 2, 0.5),
-    0 26px 44px rgba(10, 6, 2, 0.5),
-    0 0 34px rgba(238, 207, 116, 0.25);
-  z-index: 3;
-}
-
-/* as de espada: la carta maestra, más alzada */
-.education-card--espada {
-  --tilt: -5deg;
-  z-index: 2;
-}
-
-/* siete de oro: la carta que la sigue en la mano */
-.education-card--oro {
-  --tilt: 4deg;
-  margin-left: -38px;
-  margin-top: 20px;
-  z-index: 1;
-}
-
-.education-card::after {
+.education-card-front::after {
   content: "証明書 ✶ CERTIFIED ✶";
   position: absolute;
   top: 0.7rem;
@@ -144,6 +202,143 @@
   transform: rotate(7deg);
   opacity: 0.75;
   pointer-events: none;
+}
+
+.education-card--oro .education-card-front::after {
+  color: #b3893a;
+  border-color: #b3893a;
+}
+
+/* Dorso: ocre rojo fileteado con el Sol, como la tapa de la baraja */
+.education-card-back {
+  gap: 0.45rem;
+  justify-content: center;
+  padding: 2.2rem 1.4rem;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(238, 207, 116, 0.22), transparent 55%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(198, 154, 55, 0.09) 0 2px,
+      transparent 2px 12px
+    ),
+    linear-gradient(160deg, #8a2f1c 0%, #b6422a 52%, #7a2a1a 100%);
+  border: 3px solid #8a5a20;
+  box-shadow:
+    10px 12px 0 rgba(10, 6, 2, 0.45),
+    0 18px 34px rgba(10, 6, 2, 0.4);
+  color: #f3dd96;
+}
+
+.education-card-back::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 2px solid rgba(238, 207, 116, 0.75);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.education-card-back::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed rgba(238, 207, 116, 0.45);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.education-back-ornament {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: rgba(243, 221, 150, 0.9);
+}
+
+.education-back-title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: #fff8e6;
+  text-shadow: 2px 3px 0 rgba(10, 6, 2, 0.4);
+}
+
+.education-back-kana {
+  font-family: var(--font-jp);
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  color: rgba(243, 221, 150, 0.85);
+}
+
+.education-back-sun {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 4px 0;
+  border-radius: 50%;
+  border: 2px solid rgba(243, 221, 150, 0.9);
+  background: radial-gradient(circle, rgba(238, 207, 116, 0.28), transparent 68%);
+}
+
+.education-back-sun-face {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e3c874;
+  box-shadow:
+    0 0 0 4px rgba(238, 207, 116, 0.25),
+    0 0 18px rgba(238, 207, 116, 0.55);
+}
+
+.education-back-sun::before,
+.education-back-sun::after {
+  content: "✶";
+  position: absolute;
+  color: rgba(243, 221, 150, 0.9);
+  font-size: 0.85rem;
+}
+
+.education-back-sun::before {
+  top: 2px;
+}
+
+.education-back-sun::after {
+  bottom: 2px;
+}
+
+.education-back-flip {
+  margin-top: 0.65rem;
+  font-family: var(--font-type);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: #fff8e6;
+  background: rgba(10, 6, 2, 0.45);
+  border: 1px solid rgba(243, 221, 150, 0.6);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+/* as de espada: la carta maestra, más alzada */
+.education-card--espada {
+  --tilt: -5deg;
+  z-index: 2;
+}
+
+/* siete de espada (2025): la del medio del abanico, bien derecha */
+.education-cards .education-card:nth-child(2) {
+  --tilt: 0deg;
+  margin-left: -38px;
+  margin-top: 12px;
+}
+
+/* siete de oro: la carta que la sigue en la mano */
+.education-card--oro {
+  --tilt: 4deg;
+  margin-left: -38px;
+  margin-top: 20px;
+  z-index: 1;
 }
 
 /* textos de la carta, tinta sobre papel baraja */
@@ -179,7 +374,7 @@
   max-width: 92%;
 }
 
-.education-card--oro::after {
+.education-card--oro .education-card-front::after {
   color: #b3893a;
   border-color: #b3893a;
 }
@@ -260,6 +455,14 @@
   width: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .education-card,
+  .education-card-inner {
+    animation: none;
+    transition: none;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .educations-grid {
     flex-direction: column;
@@ -273,7 +476,8 @@
     width: 100%;
   }
 
-  .education-card--oro {
+  .education-card--oro,
+  .education-cards .education-card:nth-child(2) {
     margin-left: 0;
     margin-top: 0;
   }

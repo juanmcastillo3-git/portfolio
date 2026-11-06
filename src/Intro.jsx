@@ -1,6 +1,6 @@
 import "./Intro.css";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 
 /* ── El expediente del coder: se renderiza como un editor en tema oscuro ── */
@@ -222,11 +222,50 @@ const CV_URL = "/CV_Juan_Manuel_Castillo_2026.pdf";
 
 export default function Intro() {
   const [showSecondLine, setShowSecondLine] = useState(false);
+  const [visibleLines, setVisibleLines] = useState(0);
+  const codeBodyRef = useRef(null);
+
+  /* Se renderizan las líneas una sola vez y el typing solo las revela,
+     así no se re-tokeniza en cada tick. */
+  const allCodeLines = useMemo(() => renderCode(CODE), []);
+  const totalLines = allCodeLines.length;
+  const lastLineLen = useMemo(() => {
+    if (visibleLines <= 0) return 0;
+    return CODE.split("\n")[visibleLines - 1]?.length ?? 0;
+  }, [visibleLines]);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSecondLine(true), 2500);
     return () => clearTimeout(timer);
   }, []);
+
+  /* Efecto “se va escribiendo”: revela una línea cada ~22ms y acompaña
+     el scroll hasta el fondo de la ventana, como si el coder estuviera
+     tipeando en vivo. */
+  useEffect(() => {
+    if (visibleLines >= totalLines) return undefined;
+    const interval = setInterval(() => {
+      setVisibleLines((n) => Math.min(n + 1, totalLines));
+    }, 22);
+    return () => clearInterval(interval);
+  }, [visibleLines, totalLines]);
+
+  useEffect(() => {
+    const el = codeBodyRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [visibleLines]);
+
+  /* Al terminar de tipear, vuelve suavemente de abajo hacia arriba
+     hasta la primera línea (efecto “rewind” del editor). */
+  useEffect(() => {
+    if (visibleLines < totalLines) return undefined;
+    const el = codeBodyRef.current;
+    if (!el) return undefined;
+    const timer = setTimeout(() => {
+      el.scrollTo({ top: 0, behavior: "smooth" });
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [visibleLines, totalLines]);
 
   return (
     <section className="intro">
@@ -264,16 +303,18 @@ export default function Intro() {
 
         <div className="social-icons">
           <a
-            href="https://github.com/"
+            href="https://github.com/juanmcastillo3-git"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub — juanmcastillo3-git"
           >
             <FaGithub />
           </a>
           <a
-            href="https://linkedin.com/"
+            href="https://www.linkedin.com/in/juan-m-castillo-/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn — Juan M Castillo"
           >
             <FaLinkedin />
           </a>
@@ -303,10 +344,31 @@ export default function Intro() {
         <div className="code-editor-bar" aria-hidden="true">
           <span className="dot dot--red" />
           <span className="dot dot--yellow" />
-          <span className="dot dot--green" />
+          <span className="dot dot--green dot--active" />
           <span className="file-tab">coder.js</span>
         </div>
-        <div className="code-body">{renderCode(CODE)}</div>
+        <div className="code-body" ref={codeBodyRef}>
+          {allCodeLines.slice(0, visibleLines)}
+          {visibleLines < totalLines && (
+            <span className="code-cursor" aria-hidden="true" />
+          )}
+        </div>
+        {/* Barra de estado tipo VS Code: Ln/Col en vivo */}
+        <div className="code-statusbar" aria-hidden="true">
+          <span className="status-item">⎇ main</span>
+          <span className="status-item status-item--sync">
+            {visibleLines < totalLines ? "● typing…" : "✓ saved"}
+          </span>
+          <span className="status-spacer" />
+          <span className="status-item">
+            Ln {visibleLines || 1}, Col {lastLineLen + 1}
+          </span>
+          <span className="status-item">Spaces: 2</span>
+          <span className="status-item">UTF-8</span>
+          <span className="status-item status-item--ok">
+            ✓ 0 errors · 0 warnings
+          </span>
+        </div>
       </div>
     </section>
   );

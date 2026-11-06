@@ -38,7 +38,7 @@ export default function Cover({ onOpen }) {
 
       <div className="cover-hint" aria-hidden="true">
         <FaHandPointer className="cover-hint-hand" />
-        <span>tapá el libro para abrirlo</span>
+        <span>tocá el libro para abrirlo</span>
       </div>
     </section>
   );

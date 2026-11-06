@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Projects.css";
 
 const projects = [
   {
     name: "CAC Events Platform",
     url: "https://www.council.ar",
+    kanji: "祭",
+    jp: "イベント",
+    accent: "#ffb84d",
+    accent2: "#b6422a",
     tools: [
       "Next.js",
       "React",
@@ -19,6 +23,10 @@ const projects = [
   },
   {
     name: "Booking System",
+    kanji: "予約",
+    jp: "ブッキング",
+    accent: "#4db7d6",
+    accent2: "#1f4c60",
     tools: [
       "Next.js",
       "React",
@@ -33,114 +41,167 @@ const projects = [
   },
 ];
 
-/* ── Mini-resaltador de sintaxis, paleta VS Code Dark+ (igual que coder.js) ── */
-const TOKEN_RE =
-  /(\/\/.*)|('(?:[^'\\]|\\.)*')|\b(const|function|return|this|true|false|if|else|null)\b|(\b\d+(?:\.\d+)?\b)|([A-Za-z_$][\w$]*)(?=\s*:)|([A-Za-z_$][\w$]*)(?=\s*\()|([{}()[\],;:=+\-*.<>&|])/g;
-
-const TOKEN_CLASS = {
-  1: "tok-cmt",
-  2: "tok-str",
-  3: "tok-kw",
-  4: "tok-num",
-  5: "tok-prop",
-  6: "tok-fn",
-  7: "tok-punct",
-};
-
-const fileSlug = (s) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-const esc = (s) => s.replace(/'/g, "\\'");
-
-/* El proyecto redactado como código de verdad */
-const buildCode = (p) =>
-  [
-    "const project = {",
-    `  name: '${esc(p.name)}',`,
-    "  tools: [",
-    p.tools.map((t) => `    '${esc(t)}',`).join("\n"),
-    "  ],",
-    `  myRole: '${esc(p.myRole)}',`,
-    `  description: '${esc(p.description)}',`,
-    "};",
-  ].join("\n");
-
-function CodeLines({ code }) {
-  return code.split("\n").map((line, i) => {
-    const nodes = [];
-    let last = 0;
-    let m;
-    TOKEN_RE.lastIndex = 0;
-    while ((m = TOKEN_RE.exec(line)) !== null) {
-      if (m.index > last) {
-        nodes.push(
-          <span key={`t-${i}-${last}`}>{line.slice(last, m.index)}</span>
-        );
-      }
-      const group = m.slice(1).findIndex((g) => g !== undefined) + 1;
-      nodes.push(
-        <span key={`s-${i}-${m.index}`} className={TOKEN_CLASS[group]}>
-          {m[0]}
-        </span>
-      );
-      last = m.index + m[0].length;
-    }
-    if (last < line.length) {
-      nodes.push(<span key={`t-${i}-${last}`}>{line.slice(last)}</span>);
-    }
-    return (
-      <span className="code-line" key={i}>
-        <span className="code-ln" aria-hidden="true">
-          {i + 1}
-        </span>
-        <span className="code-src">{nodes.length ? nodes : "\u00A0"}</span>
-      </span>
-    );
-  });
-}
-
 const Projects = () => {
+  const [selected, setSelected] = useState(null);
+
+  /* Cerrar con Escape + bloquear el fondo mientras el modal vive */
+  useEffect(() => {
+    if (!selected) return undefined;
+    const onKey = (e) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [selected]);
+
+  const handleCardClick = (project) => {
+    /* Siempre al modal — el link externo vive adentro (sin redirección
+       directa que deje las cards como estaban). */
+    setSelected(project);
+  };
+
+  const handleCardKeyDown = (e, project) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleCardClick(project);
+    }
+  };
+
   return (
     <section className="projects-section">
-      <h2 className="section-title">PROJECTS<span className="jp-kicker" aria-hidden="true">作品</span></h2>
+      <h2 className="section-title">
+        PROJECTS<span className="jp-kicker" aria-hidden="true">作品</span>
+      </h2>
+      <p className="projects-hint" aria-hidden="true">
+        ✶ Tocá o hacé click en una carta para ver el detalle ✶
+      </p>
       <div className="projects-container">
-        {projects.map((project, index) => {
-          const card = (
-            <div className="project-card">
-              <div className="project-header">
-                <span className="dot red"></span>
-                <span className="dot yellow"></span>
-                <span className="dot green"></span>
-                <span className="project-file-tab">
-                  {fileSlug(project.name)}.js
-                  {project.url && <span className="project-file-mark"> ↗</span>}
+        {projects.map((project, index) => (
+          <article
+            key={index}
+            className="project-card"
+            role="button"
+            tabIndex={0}
+            onClick={() => handleCardClick(project)}
+            onKeyDown={(e) => handleCardKeyDown(e, project)}
+            aria-label={`${project.name} — ver detalle`}
+            aria-haspopup="dialog"
+          >
+            {/* Carta anime — vista única (desktop + mobile), sin editor viejo */}
+            <div
+              className="anime-card"
+              aria-hidden="true"
+              style={{ "--acc": project.accent, "--acc2": project.accent2 }}
+            >
+              <div className="anime-top">
+                <span className="anime-rarity">★★★★★ SSR</span>
+                <span className="anime-no">
+                  No. {String(index + 1).padStart(3, "0")}
                 </span>
               </div>
-              <div className="project-body project-code">
-                <CodeLines code={buildCode(project)} />
+              <div className="anime-art">
+                <span className="anime-art-kanji">{project.kanji}</span>
+                <span className="anime-art-jp">{project.jp}</span>
+                <span className="anime-art-role">{project.myRole}</span>
+                <span className="anime-art-stars">✶ ✦ ✶</span>
               </div>
+              <p className="anime-name">{project.name}</p>
+              <div className="anime-tools">
+                {project.tools.slice(0, 3).map((tool) => (
+                  <span key={tool} className="anime-chip">
+                    {tool}
+                  </span>
+                ))}
+                {project.tools.length > 3 && (
+                  <span className="anime-chip anime-chip--more">
+                    +{project.tools.length - 3}
+                  </span>
+                )}
+              </div>
+              <span className="anime-tap">VER DETALLE →</span>
             </div>
-          );
-
-          return project.url ? (
-            <a
-              key={index}
-              className="project-link"
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${project.name} — abrir sitio web`}
-            >
-              {card}
-            </a>
-          ) : (
-            <div key={index}>{card}</div>
-          );
-        })}
+          </article>
+        ))}
       </div>
+
+      {/* Modal con el contenido completo de la carta */}
+      {selected && (
+        <div
+          className="project-modal-backdrop"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="project-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
+            aria-describedby="project-modal-desc"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              "--acc": selected.accent,
+              "--acc2": selected.accent2,
+            }}
+          >
+            <button
+              type="button"
+              className="project-modal-close"
+              onClick={() => setSelected(null)}
+              aria-label="Cerrar detalle del proyecto"
+            >
+              ✕
+            </button>
+
+            <div className="project-modal-hero">
+              <span className="project-modal-kanji" aria-hidden="true">
+                {selected.kanji}
+              </span>
+              <p className="project-modal-jp">{selected.jp} ✶ SSR</p>
+              <h3 id="project-modal-title" className="project-modal-name">
+                {selected.name}
+              </h3>
+              <p className="project-modal-role">
+                <span aria-hidden="true">⚔ </span>
+                {selected.myRole}
+              </p>
+            </div>
+
+            <div className="project-modal-body">
+              <p id="project-modal-desc" className="project-modal-desc">
+                {selected.description}
+              </p>
+
+              <h4 className="project-modal-sub">Tools / Stack</h4>
+              <ul className="project-modal-tools">
+                {selected.tools.map((tool) => (
+                  <li key={tool} className="project-modal-chip">
+                    {tool}
+                  </li>
+                ))}
+              </ul>
+
+              {selected.url ? (
+                <a
+                  className="project-modal-link"
+                  href={selected.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit live site ↗
+                </a>
+              ) : (
+                <p className="project-modal-note">
+                  ✶ Proyecto privado — demo a pedido
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

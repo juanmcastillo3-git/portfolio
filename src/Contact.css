@@ -1,14 +1,173 @@
 /* ── Contact: sobre de papel sellado ── */
 .contact-container {
+  position: relative;
+  overflow: hidden;
   padding: 40px 4% 44px;
-  background-color: var(--paper);
   color: var(--ink);
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(43, 28, 16, 0.035) 0 1px,
-    transparent 1px 4px
+  /* Fondo claro de viaje en avión (amanecer postal, no noche) */
+  background-color: #f2ede0;
+  background-image:
+    radial-gradient(circle at 88% 8%, rgba(198, 154, 55, 0.16), transparent 42%),
+    radial-gradient(circle at 10% 92%, rgba(53, 112, 140, 0.12), transparent 44%),
+    radial-gradient(circle at 50% 55%, rgba(182, 66, 42, 0.06), transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(43, 28, 16, 0.035) 0 1px,
+      transparent 1px 4px
+    );
+}
+
+/* Capa anime: estrellitas ✶ que titilan y derivan sobre el papel claro */
+.contact-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 38px 44px, rgba(182, 66, 42, 0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 142px 96px, rgba(198, 154, 55, 0.55) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 236px 172px, rgba(53, 112, 140, 0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 78px 214px, rgba(182, 66, 42, 0.4) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 298px 52px, rgba(198, 154, 55, 0.5) 50%, transparent 51%);
+  background-size: 300px 300px, 300px 300px, 300px 300px, 300px 300px, 300px 300px;
+  opacity: 0.7;
+  animation:
+    contact-star-twinkle 3.4s ease-in-out infinite,
+    contact-star-drift 38s linear infinite;
+}
+
+/* Capa folclórica: viñeta de papel clara que respira */
+.contact-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 60%, rgba(43, 28, 16, 0.14) 100%);
+  animation: contact-glow-pulse 5.5s ease-in-out infinite;
+}
+
+.contact-title,
+.contact-content {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes contact-star-twinkle {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes contact-star-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to {
+    background-position:
+      300px 150px, 300px 150px, 300px 150px, 300px 150px, 300px 150px;
+  }
+}
+
+@keyframes contact-glow-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ── Fondo folclórico animado (decorativo) ── */
+.contact-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Sol de Mayo: rayos cónicos que giran muy lento detrás de todo,
+   en oro y rojo folk a baja opacidad para no tapar el papel */
+.fx-sun {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 920px;
+  height: 920px;
+  margin: -460px 0 0 -460px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(198, 154, 55, 0.16) 0deg 7deg,
+    transparent 7deg 16deg,
+    rgba(182, 66, 42, 0.09) 16deg 19deg,
+    transparent 19deg 28deg
   );
-  border-top: 3px double var(--gold);
+  opacity: 0.55;
+  animation: contact-sun-spin 52s linear infinite;
+}
+
+@keyframes contact-sun-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Franjas de poncho en los bordes: se deslizan sin parar */
+.fx-poncho {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    #b6422a 0 28px,
+    #c69a37 28px 56px,
+    #35708c 56px 84px,
+    #2b1c10 84px 112px,
+    #8a2f1c 112px 140px
+  );
+  background-size: 140px 100%;
+  background-repeat: repeat-x;
+  opacity: 0.85;
+  box-shadow: 0 1px 0 rgba(43, 28, 16, 0.35);
+  animation: contact-poncho-slide 14s linear infinite;
+}
+
+.fx-poncho--top {
+  top: 0;
+}
+
+.fx-poncho--bottom {
+  bottom: 0;
+  animation-direction: reverse;
+}
+
+@keyframes contact-poncho-slide {
+  from { background-position-x: 0; }
+  to { background-position-x: 140px; }
+}
+
+/* Brasas / estrellitas criollas que suben como si hubiera fogón */
+.fx-spark {
+  position: absolute;
+  bottom: 10%;
+  line-height: 1;
+  opacity: 0;
+  text-shadow: 0 0 10px rgba(198, 154, 55, 0.45);
+  animation: contact-spark-rise 6s ease-out infinite;
+}
+
+@keyframes contact-spark-rise {
+  0% { transform: translateY(18px) translateX(0) scale(0.85); opacity: 0; }
+  15% { opacity: 0.85; }
+  80% { opacity: 0.55; }
+  100% { transform: translateY(-300px) translateX(14px) scale(1.15); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-container::before,
+  .contact-container::after,
+  .fx-sun,
+  .fx-poncho,
+  .fx-spark {
+    animation: none;
+  }
 }
 
 .contact-title {
@@ -45,7 +204,8 @@
   width: 280px;
   max-width: 100%;
   border-radius: 4px;
-  filter: sepia(12%) contrast(1.02);
+  /* la ilustración es cielo claro de día: sin sepia que la apagaría */
+  filter: contrast(1.02) saturate(1.05);
   border: 4px solid var(--paper-2);
   outline: 2px solid var(--ink);
   box-shadow: 8px 8px 0 rgba(43, 28, 16, 0.25);
