@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./educations.css";
+import "./Educations.css";
 
 /* Cada logro académico es una carta fuerte del truco: número, palo y su lema. */
 const educations = [
