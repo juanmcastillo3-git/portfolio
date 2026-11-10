@@ -1,5 +1,5 @@
 import React from "react";
-import "./experience.css";
+import "./Experience.css";
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 /* eslint-enable no-unused-vars */
