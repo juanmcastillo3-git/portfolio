@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./contact.css";
+import "./Contact.css";
 import { FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 
 /* ── Contacto: mensajería a caballo hacia la casilla real ── */
